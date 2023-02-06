@@ -17,42 +17,6 @@ def socket_initialize():
     return server_sock, socks
 
 
-def turn_server_on(server_sock, sock_list, buffer):
-    while True:
-        r_sock, dummy1, dummy2 = select.select(sock_list, [], [], 0)
-        for s in r_sock:
-            if s == server_sock:
-                print(s)
-                c_sock, addr = s.accept()
-                add_client_to_list(c_sock, addr, sock_list)
-
-            else:
-                try:
-                    data = s.recv(buffer).decode('utf-8')
-                    print(f'받은 메시지> {s.getpeername()}: {data} [{datetime.datetime.now()}]')
-
-                    if data:
-                        try:
-                            message = eval(data)
-                            return message
-                            # data = json.dumps(['명령', '내용'])
-                            # s.send(data.encode())
-
-                        except TypeError:
-                            data = json.dumps(['/load_chat_again', ''])
-                            s.send(data.encode())
-
-                    if not data:
-                        print(f'클라이언트 {addr}이 접속을 종료했습니다.')
-                        s.close()
-                        continue
-
-                except ConnectionResetError:
-                    print(f'클라이언트 {addr}이 접속을 종료했습니다.')
-                    s.close()
-                    continue
-
-
 def add_client_to_list(c_sock, addr, sock_list):
     sock_list.append(c_sock)
     print(f'클라이언트 {addr}가 접속했습니다.')
