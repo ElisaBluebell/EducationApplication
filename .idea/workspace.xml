@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46ccca3f-dd19-47ed-a14e-b129d4b4caf9" name="Changes" comment="230206 ElisaBluebell">
-      <change beforePath="$PROJECT_DIR$/MainServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_server.py" afterDir="false" />
-    </list>
+    <list default="true" id="46ccca3f-dd19-47ed-a14e-b129d4b4caf9" name="Changes" comment="230206 ElisaBluebell" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,6 +81,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main_server" />
+        <item itemvalue="Python.chat_server" />
         <item itemvalue="Python.main_server" />
         <item itemvalue="Python.chat_server" />
       </list>
