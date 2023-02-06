@@ -4,10 +4,9 @@ import server_tool as sm
 
 class MainServer:
     def __init__(self):
-        socks = []
         buffer = 1024
         self.get_api_data()
-        server_sock, socks = sm.socket_initialize(socket.gethostbyname(socket.gethostname()), 9000, socks)
+        server_sock, socks = sm.socket_initialize()
         print(server_sock.getsockname())
         sm.turn_server_on(server_sock, socks, buffer)
 

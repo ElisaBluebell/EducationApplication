@@ -7,10 +7,11 @@ import socket
 import select
 
 
-def socket_initialize(ip, port, socks):
+def socket_initialize():
+    socks = []
     server_sock = socket.socket()
     server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server_sock.bind((ip, port))
+    server_sock.bind(('10.10.21.121', 9000))
     server_sock.listen()
     socks.append(server_sock)
     return server_sock, socks
