@@ -25,7 +25,7 @@ class MainServer:
 
     def turn_server_on(self):
         while True:
-            r_sock, w_sock, e_sock = select.select(self.socks, [], [], 0)
+            r_sock, dummy1, dummy2 = select.select(self.socks, [], [], 0)
             for s in r_sock:
                 if s == self.s_sock:
                     c_sock, addr = s.accept()
@@ -34,7 +34,7 @@ class MainServer:
                 else:
                     try:
                         data = s.recv(1024).decode('utf-8')
-                        print(f'받은 메시지> {s.getpeername()}: {data} [{datetime.datetime.now()}]')
+                        print(f'받은 메시지: {s.getpeername()}: {data} [{datetime.datetime.now()}]')
 
                         if data:
                             try:
@@ -45,9 +45,7 @@ class MainServer:
                                 data = json.dumps(['/load_chat_again', ''])
                                 s.send(data.encode())
 
-                        # 유언을 받은 경우
                         if not data:
-                            # 시체를 안고 커넥션 로스트 함수로
                             self.connection_lost(s)
                             continue
 
