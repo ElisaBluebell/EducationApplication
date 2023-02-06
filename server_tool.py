@@ -34,7 +34,7 @@ def turn_server_on(server_sock, sock_list, buffer):
                     if data:
                         try:
                             message = eval(data)
-                            print(message)
+                            return message
                             # data = json.dumps(['명령', '내용'])
                             # s.send(data.encode())
 
@@ -44,10 +44,12 @@ def turn_server_on(server_sock, sock_list, buffer):
 
                     if not data:
                         print(f'클라이언트 {addr}이 접속을 종료했습니다.')
+                        s.close()
                         continue
 
                 except ConnectionResetError:
                     print(f'클라이언트 {addr}이 접속을 종료했습니다.')
+                    s.close()
                     continue
 
 
