@@ -1,5 +1,4 @@
 import server_tool as sm
-import threading
 
 
 class MainServer:
@@ -20,9 +19,6 @@ class MainServer:
         print(body)
 
         sm.turn_server_on(server_sock, socks, buffer)
-
-    def send_data(self):
-        pass
 
 
 if __name__ == "__main__":
