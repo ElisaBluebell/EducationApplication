@@ -30,6 +30,7 @@ class MainServer:
                 if s == self.s_sock:
                     c_sock, addr = s.accept()
                     self.socks.append(c_sock)
+                    print(f'{c_sock.getpeername()} 접속')
 
                 else:
                     try:
@@ -54,13 +55,12 @@ class MainServer:
                         continue
 
     def connection_lost(self, s):
-        print(f'클라이언트 {s.getpeername()} 접속 종료')
+        print(f'{s.getpeername()} 접속 종료')
         s.close()
         self.socks.remove(s)
 
     @staticmethod
     def command_processor(message, client_sock):
-        # 명령문과 컨텐츠 구분
         command = message[0]
         content = message[1]
         pass
