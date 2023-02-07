@@ -4,7 +4,6 @@ import xmltodict
 import json
 import pymysql
 import socket
-import select
 
 
 def socket_initialize():
@@ -14,19 +13,29 @@ def socket_initialize():
     server_sock.bind(('10.10.21.121', 9000))
     server_sock.listen()
     socks.append(server_sock)
+    print(f' port {9000} is Waiting for Connection')
     return server_sock, socks
 
 
-def add_client_to_list(c_sock, addr, sock_list):
-    sock_list.append(c_sock)
-    print(f'클라이언트 {addr}가 접속했습니다.')
+def add_client_to_socket_list(sock, socket_list):
+    client_socket, addr = sock.accept()
+    socket_list.append(client_socket)
+    print(f'Client {client_socket.getpeername()} is Connected')
+    return client_socket, addr, socket_list
 
 
 def send_command(command, content, s):
     message = [command, content, s]
     data = json.dumps([command, content])
-    print(f'보낸 메시지: {data} [{datetime.datetime.now()}]')
+    print(f'Server Message: {data} [{datetime.datetime.now()}]')
     s.send(data.encode())
+
+
+def connection_lost(sock, socks):
+    print(f'Client {sock.getpeername()} Connection Lost')
+    sock.close()
+    socks.remove(sock)
+    return socks
 
 
 def get_database_from_url(url):
