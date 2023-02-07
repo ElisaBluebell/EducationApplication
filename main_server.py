@@ -122,6 +122,10 @@ class MainServer:
 
     def check_answer(self, answer, client_sock):
         pass
+        # slq = 'SELECT correct FROM quiz WHERE '
+
+    def send_quiz_by_location(self, location, client_sock):
+        pass
 
 
 if __name__ == "__main__":
