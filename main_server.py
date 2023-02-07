@@ -63,13 +63,6 @@ class MainServer:
     def command_processor(message, client_sock):
         command = message[0]
         content = message[1]
-        pass
-
-    def send_command(self, command, content, s):
-        message = [command, content, s]
-        data = json.dumps([command, content])
-        print(f'보낸 메시지: {data} [{datetime.datetime.now()}]')
-        s.send(data.encode())
 
 
 if __name__ == "__main__":

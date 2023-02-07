@@ -22,6 +22,13 @@ def add_client_to_list(c_sock, addr, sock_list):
     print(f'클라이언트 {addr}가 접속했습니다.')
 
 
+def send_command(command, content, s):
+    message = [command, content, s]
+    data = json.dumps([command, content])
+    print(f'보낸 메시지: {data} [{datetime.datetime.now()}]')
+    s.send(data.encode())
+
+
 def get_database_from_url(url):
     response = requests.get(url)
     return response.text
