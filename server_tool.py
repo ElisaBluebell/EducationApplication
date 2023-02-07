@@ -62,5 +62,4 @@ def execute_db(sql):
     c.execute(sql)
     conn.commit()
 
-    c.close()
-    conn.close()
+    return c.fetchall()
