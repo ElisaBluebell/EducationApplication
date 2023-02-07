@@ -45,13 +45,16 @@ class MainServer:
         print(message)
         command = message[0]
         content = message[1]
-        if command == '/register_student':
-            self.register_student(content, client_sock)
+        if command == '/register_user':
+            self.register_user(content, client_sock)
 
         elif command == '/login_student':
             self.student_login(content, client_sock)
 
-    def register_student(self, register_info, client_sock):
+        elif command == '/ask_student':
+            self.question_from_student(content, client_sock)
+
+    def register_user(self, register_info, client_sock):
         user_class, user_name, user_id, user_password = register_info
 
         if self.check_if_exist(user_id, 'account', 'user_id') == 1:
@@ -90,6 +93,18 @@ class MainServer:
     def get_user_name(self, user_id):
         sql = f'SELECT user_name FROM account WHERE user_id="{user_id}"'
         return st.execute_db(sql)[0][0]
+
+    def question_from_student(self, question_data, client_sock):
+        posted_time, student_name, question = question_data
+        print(posted_time)
+        print(student_name)
+        print(question)
+
+        sql = f'INSERT INTO qna(posted_time, student_name, question) ' \
+              f'VALUES("{posted_time}", "{student_name}", "{question}")'
+        st.execute_db(sql)
+
+        st.send_command('/post_success', '', client_sock)
 
 
 if __name__ == "__main__":
