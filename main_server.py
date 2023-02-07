@@ -1,5 +1,4 @@
 import datetime
-import json
 
 import select
 import server_tool as st
@@ -7,17 +6,9 @@ import server_tool as st
 
 class MainServer:
     def __init__(self):
-        xml_string = st.get_database_from_url(
-            'http://openapi.forest.go.kr/openapi/service/cultureInfoService/gdTrailInfoOpenAPI?'
-            'serviceKey=yn8uwUR3eheqowtPnA9QRTQ9i8mYGhGEetp6HDG1hMhCeH9%2BNJFN6WlIM1AzfgrZB59syoKUT1rAVveE9J6Okg%3D%3D&'
-            'searchMtNm=&'
-            'searchArNm=&'
-            'pageNo=1&'
-            'numOfRows=100'
-        )
+        xml_string = st.get_database_from_url('http://openapi.forest.go.kr/openapi/service/cultureInfoService/gdTrailInfoOpenAPI?serviceKey=yn8uwUR3eheqowtPnA9QRTQ9i8mYGhGEetp6HDG1hMhCeH9%2BNJFN6WlIM1AzfgrZB59syoKUT1rAVveE9J6Okg%3D%3D&searchMtNm=&searchArNm=&pageNo=1&numOfRows=100')
         raw_data = st.xml_to_json(xml_string)
         mntnm, aeatreason, overview, details = st.get_useful_data(raw_data)
-        print(aeatreason)
         self.server_socket, self.socks = st.socket_initialize('10.10.21.121', 9000)
         self.turn_server_on()
 
@@ -93,7 +84,12 @@ class MainServer:
                 st.send_command('/login_password_fail', '', client_sock)
 
             else:
-                st.send_command('/login_success', '', client_sock)
+                login_name = self.get_user_name(login_id)
+                st.send_command('/login_success', login_name, client_sock)
+
+    def get_user_name(self, user_id):
+        sql = f'SELECT user_name FROM account WHERE user_id="{user_id}"'
+        return st.execute_db(sql)[0][0]
 
 
 if __name__ == "__main__":
