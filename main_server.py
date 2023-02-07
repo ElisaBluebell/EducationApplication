@@ -46,21 +46,23 @@ class MainServer:
         if command == '/register_student':
             self.register_student(content, client_sock)
 
-    def register_student(self, register_info, client_sock):
+        elif command == '/login_student':
+            self.student_login(content, client_sock)
 
+    def register_student(self, register_info, client_sock):
         user_class, user_name, user_id, user_password = register_info
 
-        if self.check_if_overlapped(user_id) == 1:
+        if self.check_if_exist(user_id, 'account', 'user_id') == 1:
             st.send_command('/register_fail', '', client_sock)
 
         else:
             self.regist_user(register_info, client_sock)
 
-    def check_if_overlapped(self, user_id):
-        sql = 'SELECT user_id FROM account'
-        db_user_id = st.execute_db(sql)
-        for i in range(len(db_user_id)):
-            if user_id == db_user_id[i][0]:
+    def check_if_exist(self, thing_need_check, table, column):
+        sql = f'SELECT {column} FROM {table}'
+        db_check_list = st.execute_db(sql)
+        for i in range(len(db_check_list)):
+            if thing_need_check == db_check_list[i][0]:
                 return 1
         return 0
 
@@ -68,8 +70,19 @@ class MainServer:
         sql = f'INSERT INTO account VALUES("{register_info[0]}", "{register_info[1]}", "{register_info[2]}", ' \
               f'"{register_info[3]}")'
         st.execute_db(sql)
-
         st.send_command('/register_success', '', client_sock)
+
+    def student_login(self, login_list, client_sock):
+        login_id, login_password = login_list
+        if self.check_if_exist(login_id, 'account', 'user_id') == 0:
+            st.send_command('/login_id_fail', '', client_sock)
+
+        else:
+            if self.check_if_exist(login_password, 'account', 'user_password') == 0:
+                st.send_command('/login_password_fail', '', client_sock)
+
+            else:
+                st.send_command('/login_success', '', client_sock)
 
 
 if __name__ == "__main__":
