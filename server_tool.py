@@ -24,6 +24,23 @@ def add_client_to_socket_list(sock, socket_list):
     return client_socket, addr, socket_list
 
 
+def command_processor(message, client_sock):
+    print(message)
+    command = message[0]
+    content = message[1]
+    if command == '/register_user':
+        register_user(content, client_sock)
+
+    elif command == '/login_student':
+        student_login(content, client_sock)
+
+    elif command == '/ask_student':
+        question_from_student(content, client_sock)
+
+    elif command == '/ask_check_student':
+        send_whole_qna_data(content, client_sock)
+
+
 def send_command(command, content, s):
     data = json.dumps([command, content])
     print(f'Server Message: {data} [{datetime.datetime.now()}]')
@@ -35,6 +52,76 @@ def connection_lost(sock, socks):
     sock.close()
     socks.remove(sock)
     return socks
+
+
+def check_if_exist(thing_need_check, table, column):
+    sql = f'SELECT {column} FROM {table}'
+    db_check_list = execute_db(sql)
+    for i in range(len(db_check_list)):
+        if thing_need_check == db_check_list[i][0]:
+            return 1
+    return 0
+
+
+def student_login(login_list, client_sock):
+    login_id, login_password = login_list
+    if check_if_exist(login_id, 'account', 'user_id') == 0:
+        send_command('/login_id_fail', '', client_sock)
+
+    else:
+        if check_if_exist(login_password, 'account', 'user_password') == 0:
+            send_command('/login_password_fail', '', client_sock)
+
+        else:
+            login_name = get_user_name(login_id)
+            send_command('/login_success', login_name, client_sock)
+
+
+def get_user_name(user_id):
+    sql = f'SELECT user_name FROM account WHERE user_id="{user_id}"'
+    return execute_db(sql)[0][0]
+
+
+def register_user(register_info, client_sock):
+    user_class, user_name, user_id, user_password = register_info
+
+    if check_if_exist(user_id, 'account', 'user_id') == 1:
+        send_command('/register_fail', '', client_sock)
+
+    else:
+        regist_user(register_info, client_sock)
+
+
+def question_from_student(question_data, client_sock):
+    posted_time, student_name, question = question_data
+    print(posted_time)
+    print(student_name)
+    print(question)
+
+    sql = f'INSERT INTO qna(posted_time, student_name, question) ' \
+          f'VALUES("{posted_time}", "{student_name}", "{question}")'
+    execute_db(sql)
+
+    send_command('/post_success', '', client_sock)
+
+
+def send_whole_qna_data(dummy, client_sock):
+    sql = 'SELECT * FROM qna'
+    whole_qna = list(execute_db(sql))
+    for i in range(len(whole_qna)):
+        whole_qna[i] = list(whole_qna[i])
+        print(whole_qna)
+        for j in range(len(whole_qna[i])):
+            if whole_qna[i][j] is None:
+                whole_qna[i][j] = 'X'
+    send_command('/whole_qna_data', whole_qna, client_sock)
+
+
+def regist_user(register_info, client_sock):
+    sql = f'INSERT INTO account VALUES("{register_info[0]}", "{register_info[1]}", "{register_info[2]}", ' \
+          f'"{register_info[3]}")'
+    execute_db(sql)
+    send_command('/register_success', '', client_sock)
 
 
 def get_database_from_url(url):
