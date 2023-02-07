@@ -47,11 +47,17 @@ def xml_to_json(xml_string):
     return json.loads(json_string)
 
 
-def get_useful_data(raw_data, i):
-    return raw_data['response']['body']['items']['item'][i]['mntnm'], \
-           raw_data['response']['body']['items']['item'][i]['aeatreason'], \
-           raw_data['response']['body']['items']['item'][i]['overview'], \
-           raw_data['response']['body']['items']['item'][i]['details']
+def get_useful_data(raw_data):
+    mntnm = []
+    aeatreason = []
+    overview = []
+    details = []
+    for i in range(len(raw_data['response']['body']['items']['item'])):
+        mntnm.append(raw_data['response']['body']['items']['item'][i]['mntnm'])
+        aeatreason.append(raw_data['response']['body']['items']['item'][i]['aeatreason'])
+        overview.append(raw_data['response']['body']['items']['item'][i]['overview'])
+        details.append(raw_data['response']['body']['items']['item'][i]['details'])
+    return mntnm, aeatreason, overview, details
 
 
 def execute_db(sql):
