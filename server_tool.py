@@ -50,13 +50,9 @@ def xml_to_json(xml_string):
 
 def get_useful_data(raw_data, i):
     return raw_data['response']['body']['items']['item'][i]['mntnm'], \
-           raw_data['response']['body']['items']['item'][i]['mntheight'], \
            raw_data['response']['body']['items']['item'][i]['aeatreason'], \
            raw_data['response']['body']['items']['item'][i]['overview'], \
-           raw_data['response']['body']['items']['item'][i]['details'], \
-           raw_data['response']['body']['items']['item'][i]['transport'], \
-           raw_data['response']['body']['items']['item'][i]['tourisminf'], \
-           raw_data['response']['body']['items']['item'][i]['etccourse']
+           raw_data['response']['body']['items']['item'][i]['details']
 
 
 def execute_db(sql):

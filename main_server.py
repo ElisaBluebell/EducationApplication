@@ -1,9 +1,6 @@
 import datetime
-import json
-import socket
-
-import server_tool as st
 import select
+import server_tool as st
 
 
 class MainServer:
