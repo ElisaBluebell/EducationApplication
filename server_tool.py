@@ -6,14 +6,14 @@ import pymysql
 import socket
 
 
-def socket_initialize():
+def socket_initialize(ip, port):
     socks = []
     server_sock = socket.socket()
     server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server_sock.bind(('10.10.21.121', 9000))
+    server_sock.bind((ip, port))
     server_sock.listen()
     socks.append(server_sock)
-    print(f' port {9000} is Waiting for Connection')
+    print(f' port {port} is Waiting for Connection')
     return server_sock, socks
 
 
@@ -25,7 +25,6 @@ def add_client_to_socket_list(sock, socket_list):
 
 
 def send_command(command, content, s):
-    message = [command, content, s]
     data = json.dumps([command, content])
     print(f'Server Message: {data} [{datetime.datetime.now()}]')
     s.send(data.encode())

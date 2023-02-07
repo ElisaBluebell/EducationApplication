@@ -7,7 +7,7 @@ import server_tool as st
 
 class MainServer:
     def __init__(self):
-        self.server_socket, self.socks = st.socket_initialize()
+        self.server_socket, self.socks = st.socket_initialize('10.10.21.121', 9000)
         self.turn_server_on()
 
     def turn_server_on(self):
