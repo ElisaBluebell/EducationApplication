@@ -54,6 +54,9 @@ class MainServer:
         elif command == '/ask_student':
             self.question_from_student(content, client_sock)
 
+        elif command == '/ask_check_student':
+            self.send_whole_qna_data(content, client_sock)
+
     def register_user(self, register_info, client_sock):
         user_class, user_name, user_id, user_password = register_info
 
@@ -105,6 +108,20 @@ class MainServer:
         st.execute_db(sql)
 
         st.send_command('/post_success', '', client_sock)
+
+    def send_whole_qna_data(self, dummy, client_sock):
+        sql = 'SELECT * FROM qna'
+        whole_qna = list(st.execute_db(sql))
+        for i in range(len(whole_qna)):
+            whole_qna[i] = list(whole_qna[i])
+            print(whole_qna)
+            for j in range(len(whole_qna[i])):
+                if whole_qna[i][j] is None:
+                    whole_qna[i][j] = 'X'
+        st.send_command('/whole_qna_data', whole_qna, client_sock)
+
+    def check_answer(self, answer, client_sock):
+        pass
 
 
 if __name__ == "__main__":
