@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1081</width>
-    <height>881</height>
+    <width>910</width>
+    <height>889</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@ background-color: rgb(90, 186, 30);</string>
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -75,7 +75,7 @@ background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.99
        <string>로그인</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="singup_btn">
+     <widget class="QPushButton" name="signup_btn">
       <property name="geometry">
        <rect>
         <x>830</x>
@@ -246,7 +246,7 @@ color: rgb(255, 255, 255);</string>
        <string>Enter the user ID</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox">
+     <widget class="QComboBox" name="status_comboBox">
       <property name="geometry">
        <rect>
         <x>250</x>
@@ -392,7 +392,7 @@ color: rgb(255, 255, 255);</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="gangwondo_btn">
       <property name="geometry">
        <rect>
         <x>800</x>
@@ -409,7 +409,7 @@ font: 25pt &quot;Cambria&quot;;</string>
        <string>강원도</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="jeju_btn">
       <property name="geometry">
        <rect>
         <x>620</x>
@@ -426,7 +426,7 @@ font: 25pt &quot;Cambria&quot;;</string>
        <string>제주도</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="gyeongnam_btn">
       <property name="geometry">
        <rect>
         <x>780</x>
@@ -443,7 +443,7 @@ font: 25pt &quot;Cambria&quot;;</string>
        <string>경상남도</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="jeonnam_btn">
       <property name="geometry">
        <rect>
         <x>600</x>
@@ -460,7 +460,7 @@ font: 25pt &quot;Cambria&quot;;</string>
        <string>전라남도</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_5">
+     <widget class="QPushButton" name="gyeongbuk_btn">
       <property name="geometry">
        <rect>
         <x>820</x>
@@ -477,7 +477,7 @@ font: 25pt &quot;Cambria&quot;;</string>
        <string>경상북도</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_6">
+     <widget class="QPushButton" name="jeonbuk_btn">
       <property name="geometry">
        <rect>
         <x>630</x>
@@ -494,7 +494,7 @@ font: 25pt &quot;Cambria&quot;;</string>
        <string>전라북도</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_7">
+     <widget class="QPushButton" name="chungnam_btn">
       <property name="geometry">
        <rect>
         <x>580</x>
@@ -511,7 +511,7 @@ font: 25pt &quot;Cambria&quot;;</string>
        <string>충청남도</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_8">
+     <widget class="QPushButton" name="chungbuk_btn">
       <property name="geometry">
        <rect>
         <x>740</x>
@@ -528,7 +528,7 @@ font: 25pt &quot;Cambria&quot;;</string>
        <string>충청북도</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_9">
+     <widget class="QPushButton" name="seoul_btn">
       <property name="geometry">
        <rect>
         <x>630</x>
@@ -741,6 +741,46 @@ background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.99
        <string>지난 학습 이어하기</string>
       </property>
      </widget>
+     <widget class="QLabel" name="label_16">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>300</y>
+        <width>291</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>390</y>
+        <width>291</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
@@ -775,9 +815,9 @@ font: 25pt &quot;Cambria&quot;;</string>
      <widget class="QLabel" name="label_14">
       <property name="geometry">
        <rect>
-        <x>360</x>
+        <x>280</x>
         <y>20</y>
-        <width>371</width>
+        <width>531</width>
         <height>61</height>
        </rect>
       </property>
@@ -907,7 +947,7 @@ font: 25pt &quot;Cambria&quot;;</string>
 font: 25pt &quot;Cambria&quot;;</string>
       </property>
       <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>150</number>
+       <number>192</number>
       </attribute>
       <column>
        <property name="text">
@@ -1167,8 +1207,8 @@ font: 25pt &quot;Cambria&quot;;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1081</width>
-     <height>21</height>
+     <width>910</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
