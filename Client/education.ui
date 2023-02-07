@@ -1,0 +1,1474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1088</width>
+    <height>899</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+background-color: rgb(90, 186, 30);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1081</width>
+      <height>861</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="currentIndex">
+     <number>3</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>로그인</string>
+     </attribute>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1081</width>
+        <height>981</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>백두대간학습.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>740</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>로그인</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="signup_btn">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>740</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>회원가입</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>590</y>
+        <width>151</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>ID</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="student_id">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>590</y>
+        <width>291</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(255, 255, 255);
+font: 15pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>ID를 입력해주세요</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>660</y>
+        <width>151</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Password</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="student_password">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>660</y>
+        <width>291</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(255, 255, 255);
+font: 15pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>비밀번호를 입력해 주세요.</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>회원가입</string>
+     </attribute>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1081</width>
+        <height>861</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>명산(회원가입)1.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="register_password">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>340</y>
+        <width>341</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(23, 96, 255);
+font: 25pt &quot;Sitka Banner&quot;;
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string>Enter the user Password</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="register_id">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>260</y>
+        <width>341</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(23, 96, 255);
+font: 25pt &quot;Sitka Banner&quot;;
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string>Enter the user ID</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="status_comboBox">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>180</y>
+        <width>151</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(23, 96, 255);
+font: 25pt &quot;Sitka Banner&quot;;
+color: rgb(255, 255, 255);</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>학생</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLineEdit" name="register_name">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>180</y>
+        <width>341</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(23, 96, 255);
+font: 25pt &quot;Sitka Banner&quot;;
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string>Enter the user Name</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>340</y>
+        <width>151</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(23, 96, 255);
+font: 25pt &quot;Cambria&quot;;
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Password</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>260</y>
+        <width>151</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(23, 96, 255);
+font: 25pt &quot;Cambria&quot;;
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>ID</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="register_signup_btn">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>540</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(23, 96, 255);
+font: 25pt &quot;Cambria&quot;;
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>회원가입</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_move_btn">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>620</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(23, 96, 255);
+font: 25pt &quot;Cambria&quot;;
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>메인화면</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>메인화면</string>
+     </attribute>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>0</y>
+        <width>531</width>
+        <height>821</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>산림청100대명산문제.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="gangwondo_btn">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>160</y>
+        <width>121</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>강원도</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="jeju_btn">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>760</y>
+        <width>121</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>제주도</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="gyeongnam_btn">
+      <property name="geometry">
+       <rect>
+        <x>780</x>
+        <y>570</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>경상남도</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="jeonnam_btn">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>600</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>전라남도</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="gyeongbuk_btn">
+      <property name="geometry">
+       <rect>
+        <x>820</x>
+        <y>390</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>경상북도</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="jeonbuk_btn">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>490</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>전라북도</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="chungnam_btn">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>300</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>충청남도</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="chungbuk_btn">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>250</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>충청북도</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="seoul_btn">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>190</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>서울/경기</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>90</y>
+        <width>501</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>&gt; 지도의 버튼을 클릭하면 &gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>170</y>
+        <width>501</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>문제풀이 페이지로 이동합니다!</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>300</y>
+        <width>251</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>10</y>
+        <width>281</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>환영합니다 </string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>560</x>
+        <y>10</y>
+        <width>501</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>'대한민국 100대 명산'</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>480</y>
+        <width>231</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>My Point</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>480</y>
+        <width>251</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>750</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>상담 요청</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_4">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>750</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>질문하기</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>590</y>
+        <width>481</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>지난 학습 이어하기</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_8">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>670</y>
+        <width>481</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>질문 게시판</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_16">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>300</y>
+        <width>231</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>ID</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>390</y>
+        <width>231</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>이름</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>390</y>
+        <width>251</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_4">
+     <attribute name="title">
+      <string>문제풀이</string>
+     </attribute>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>100</y>
+        <width>1041</width>
+        <height>441</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="page"/>
+      <widget class="QWidget" name="page_2"/>
+      <widget class="QWidget" name="page_3"/>
+      <widget class="QWidget" name="page_4"/>
+      <widget class="QWidget" name="page_5"/>
+      <widget class="QWidget" name="page_6"/>
+      <widget class="QWidget" name="page_7"/>
+      <widget class="QWidget" name="page_8"/>
+      <widget class="QWidget" name="page_9"/>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>20</y>
+        <width>531</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>대한민국 명산 학습 문제</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_9">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>770</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>학습단계저장</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_10">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>770</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>다음문제</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="Quiz_answer_groupBox">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>560</y>
+        <width>271</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="title">
+       <string>문제정답은?</string>
+      </property>
+      <widget class="QRadioButton" name="radioButton_O">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>50</y>
+         <width>231</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>O</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_X">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>110</y>
+         <width>231</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>X</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="login_btn_11">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>700</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>학습완료</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_5">
+     <attribute name="title">
+      <string>질문조회</string>
+     </attribute>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>10</y>
+        <width>241</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Q &amp; A</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="ask_check_tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>90</y>
+        <width>1041</width>
+        <height>641</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>175</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>날짜</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>이름</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>질문</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>답변자</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QPushButton" name="ask_check_btn">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>740</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>질문 조회</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_22">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>740</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>메인 페이지</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_8">
+     <attribute name="title">
+      <string>질문</string>
+     </attribute>
+     <widget class="QLabel" name="label_20">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>20</y>
+        <width>241</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>질문</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="ask_textEdit">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>110</y>
+        <width>1011</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cambria'; font-size:25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ask_btn">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>660</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>질문하기</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_25">
+      <property name="geometry">
+       <rect>
+        <x>560</x>
+        <y>660</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>메인 페이지</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_6">
+     <attribute name="title">
+      <string>상담</string>
+     </attribute>
+     <widget class="QLabel" name="onechat_title_5">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>20</y>
+        <width>341</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>상담 메시지</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="chat">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>80</y>
+        <width>1021</width>
+        <height>411</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(255, 255, 255);
+font: 15pt &quot;Cambria&quot;;</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="msg_lienEdit">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>740</y>
+        <width>691</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>메세지를 작성 해 주세요</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="msg_send_btn">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>750</y>
+        <width>291</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>전송</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="msg_send_btn_2">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>670</y>
+        <width>291</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>메인 화면 이동</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_31">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>650</y>
+        <width>391</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_32">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>650</y>
+        <width>281</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>학생 이름 :</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_33">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>550</y>
+        <width>281</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>선생님 이름 :</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_34">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>550</y>
+        <width>391</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_7">
+     <attribute name="title">
+      <string>답변</string>
+     </attribute>
+     <widget class="QLabel" name="label_18">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>20</y>
+        <width>241</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>질문</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>110</y>
+        <width>1011</width>
+        <height>231</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cambria'; font-size:25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-size:22pt;&quot;&gt;안녕하세요&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-size:22pt;&quot;&gt;난이런질문을할거에요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_19">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>360</y>
+        <width>241</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="text">
+       <string>답변</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>440</y>
+        <width>1011</width>
+        <height>231</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+font: 25pt &quot;Cambria&quot;;</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cambria'; font-size:25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-size:22pt;&quot;&gt;무엇이 힘들게하는가요? &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Gulim'; font-size:22pt;&quot;&gt;조금 더 고민해보세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_21">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>700</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>답변등록</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="login_btn_23">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>700</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+font: 25pt &quot;Cambria&quot;;
+background-color: qlineargradient(spread:repeat, x1:0.023, y1:0.0227273, x2:0.994318, y2:1, stop:0 rgba(23, 253, 253, 255), stop:0.931818 rgba(132, 132, 12, 255));
+}</string>
+      </property>
+      <property name="text">
+       <string>메인 페이지</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1088</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

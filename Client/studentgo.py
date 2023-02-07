@@ -30,11 +30,27 @@ class StudentWindow(QMainWindow, form_class):
         super(QMainWindow, self).__init__()
         self.setupUi(self)
 
+        # 첫번째 로그인 화면 지정
         self.tabWidget.setCurrentIndex(0)
+
+        # 날짜, 시간 사용하기
+        self.timer = QTimer(self) # 윈도우가 생성될 때 QTimer 객체 생성한다.
+        self.timer.start(1000) # 생성한 객체에 interval(1초) 간격 설정
+        self.timer.timeout.connect(self.timeout)
+
+        # 스테이터스바 이용하기
+        self.progressbar = QtWidgets.QProgressBar()
+        self.progressbar.setValue(50)
+        self.statusBar().addPermanentWidget(self.progressbar)
+        self.statusBar().setStyleSheet("font: 20px")
+
+        # 서버와 소통하기 위한 소켓 객체 생성 
         self.sock = socket()
         self.socks = []
         self.connect = True
         self.thread_switch = 0
+
+
         # 로그인 버튼 클릭시 서버에 데이터 전송
         self.login_btn.clicked.connect(self.login)
         # 회원가입 페이지 이동
@@ -56,11 +72,52 @@ class StudentWindow(QMainWindow, form_class):
         self.jeonnam_btn.clicked.connect(self.quiz_request)
         self.jeju_btn.clicked.connect(self.quiz_request)
 
+        # Q & A 질문하기 버튼 클릭시 발생하는 시그널
+        self.ask_btn.clicked.connect(self.ask_question)
+        self.ask_check_btn.clicked.connect(self.ask_check)
+
         self.connectserver()
-    
+
+    def ask_question(self):
+        self.date = f'{self.str_date} / {self.str_time}'
+        self.name = '박의용'
+        self.ask = self.ask_textEdit.toPlainText()
+        self.asklist = [self.date, self.name, self.ask]
+        if '' not in self.asklist:
+            self.send_command('/ask_student', self.asklist)
+
+
+    def ask_check(self):
+        btn = self.sender()
+        check = btn.text()
+        self.send_command('/ask_check_student',check) # "check=질문 조회"
+        
+        # self.id = 'yuiyong'
+        # self.name = '박의용'
+        # self.ask = self.ask_textEdit.toPlainText()
+        # self.asklist = [self.str_date, self.str_time, self.id, self.ask]
+        # if '' not in self.asklist:
+
+        # pass
+    def timeout(self):
+        self.cur_date = QDate.currentDate()
+        self.str_date = self.cur_date.toString(Qt.ISODate)
+        self.cur_time = QTime.currentTime()
+        self.str_time = self.cur_time.toString('hh:mm:ss')
+        self.statusBar().showMessage(f'현재 날짜: {self.str_date}, 현재 시간: {self.str_time}')
+        
     def connectserver(self):
         self.sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-
+        # SOL_SOCKET = (프로토콜 레벨. 일반)
+        # SO_REUSEADDR = (이미 사용중인 주소나 포트에 대해서도 바인드 허용)
+        # 소켓을 이용한 서버프로그램을 운용할 때
+        # 강제종료되거나 비정상 종료되는 경우가 발생하는데,
+        # 프로그램이 종료되어도 아직 커널이 BIND정보를 유지하고 있음으로
+        # 주소가 이미 사용되고 있다고 나온다. 1-2분 정도 가 지나면
+        # 이런 오류는 사라지는데 그 시간동안 기다리기 번거로우므로
+        # 기존에 BIND로 할당된 소켓자원을 프로세스가 재 사용할 수 있도록 허락한다.
+        # 위 프로토콜레벨이나 옵션명은 시스템에서는 정수형 인자로 매핑되어 있다.
+        # 즉 시스템에 정의되어 있는 상수 값이다.
         self.socks.append(self.sock)
         self.sock.connect(ADDR)
         self.thread_switch = 1
@@ -99,10 +156,28 @@ class StudentWindow(QMainWindow, form_class):
         
         elif command == '/login_success':
             print("로그인에 성공 했습니다.")
-            self.login_success()
+            self.login_success(content)
+        
+        elif command == '/post_success':
+            print('질문 등록에 성공하였습니다.')
+            self.post_success()
+
+        elif command == '/whole_qna_data':
+            print("질문 조회에 성공하였습니다.")
+            self.ask_success(content)
+
         else:
             pass
     
+    def ask_success(self, content):
+        win32api.MessageBox(0,'질문 조회가 완료되었습니다.', '질문조회', 0)
+        self.askcheck = content
+        print(self.askcheck)
+
+    def post_success(self):
+        win32api.MessageBox(0,'질문 등록이 완료되었습니다.', '질문등록', 0)
+        self.ask_textEdit.clear()
+
     def login_id_fail(self):
         win32api.MessageBox(0,'로그인에 실패했습니다. ID를 확인 해 주세요.', '로그인실패', 16)
 
@@ -111,7 +186,7 @@ class StudentWindow(QMainWindow, form_class):
 
     def login_success(self):
         win32api.MessageBox(0,'로그인에 성공하였습니다. 환영합니다.', '로그인완료', 0)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(2)
 
     def register_success(self):
         win32api.MessageBox(0,'회원가입이 완료되었습니다. 환영합니다.', '등록완료', 0)
@@ -156,7 +231,7 @@ class StudentWindow(QMainWindow, form_class):
 
         self.sock.send(data.encode())
 
-        
+    
     def register_server(self):
         self.r_name = self.register_name.text()
         self.r_id = self.register_id.text()
@@ -166,7 +241,7 @@ class StudentWindow(QMainWindow, form_class):
 
         if '' not in self.signuplist:
             print("회원가입시도 : ", self.signuplist)
-            self.send_command('/register_student', self.signuplist)
+            self.send_command('/register_user', self.signuplist)
             ###받고  성공-1 실패-0 ###
 
         else:
