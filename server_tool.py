@@ -37,6 +37,37 @@ def connection_lost(sock, socks):
     return socks
 
 
+def turn_server_on(command_processor, server_socket, socks):
+    import datetime
+    import select
+    while True:
+        read_socket, dummy1, dummy2 = select.select(socks, [], [], 0)
+        for sock in read_socket:
+            if sock == server_socket:
+                client_socket, addr, socks = add_client_to_socket_list(sock, socks)
+
+            else:
+                try:
+                    data = sock.recv(1024).decode('utf-8')
+                    print(f'Received Message: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
+
+                    if data:
+                        try:
+                            message = eval(data)
+                            command_processor(message, sock)
+
+                        except TypeError:
+                            print('TypeError Occurred')
+
+                    if not data:
+                        socks = connection_lost(sock, socks)
+                        continue
+
+                except ConnectionResetError:
+                    socks = connection_lost(sock, socks)
+                    continue
+
+
 def check_if_exist(thing_need_check, table, column):
     sql = f'SELECT {column} FROM {table}'
     db_check_list = execute_db(sql)
