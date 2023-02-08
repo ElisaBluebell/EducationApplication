@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="Definite send_quiz_by_location&#10;230208 ElisaBluebell">
+    <list default="true" id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="230208 ElisaBluebell">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +43,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Kiot/Desktop/JohnKParkProjects/EducationApplication&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.chat_client">
+  <component name="RunManager" selected="Python.main_server (1)">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="EducationApplication" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -232,8 +233,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.chat_client" />
         <item itemvalue="Python.main_server (1)" />
+        <item itemvalue="Python.chat_client" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.student" />
         <item itemvalue="Python.new" />
@@ -494,7 +495,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675853232622</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="230208 ElisaBluebell">
+      <created>1675853397321</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1675853397321</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -514,8 +522,8 @@
     <MESSAGE value="definite sock_initialize&#10;definite turn_server_on&#10;definite set_client&#10;definite add_client_to_list&#10;definite get_database_from_url&#10;definite xml_to_json&#10;definite get_useful_data&#10;definite execute_db&#10;230206 ElisaBluebell" />
     <MESSAGE value="230206 ElisaBluebell" />
     <MESSAGE value="230207 ElisaBluebell" />
-    <MESSAGE value="230208 ElisaBluebell" />
     <MESSAGE value="Definite send_quiz_by_location&#10;230208 ElisaBluebell" />
-    <option name="LAST_COMMIT_MESSAGE" value="Definite send_quiz_by_location&#10;230208 ElisaBluebell" />
+    <MESSAGE value="230208 ElisaBluebell" />
+    <option name="LAST_COMMIT_MESSAGE" value="230208 ElisaBluebell" />
   </component>
 </project>

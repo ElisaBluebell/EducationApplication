@@ -115,7 +115,7 @@ class MainServer:
             area_name = '경상북도'
         elif location == 'gyeongnam':
             area_name = '경상남도'
-        elif location == 'jeonbook':
+        elif location == 'jeonbuk':
             area_name = '전라북도'
         elif location == 'jeonnam':
             area_name = '전라남도'
