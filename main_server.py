@@ -103,7 +103,6 @@ class MainServer:
 
     def send_quiz_by_location(self, location, client_sock):
         location = location[7:]
-        print(location)
         if location == 'gangwon':
             area_name = '강원도'
         elif location == 'seoul':

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="230208 ElisaBluebell">
+    <list default="true" id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="Definite send_quiz_by_location&#10;230208 ElisaBluebell">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_server.py" afterDir="false" />
     </list>
@@ -487,7 +487,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675842582596</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Definite send_quiz_by_location&#10;230208 ElisaBluebell">
+      <created>1675853232622</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1675853232622</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -508,6 +515,7 @@
     <MESSAGE value="230206 ElisaBluebell" />
     <MESSAGE value="230207 ElisaBluebell" />
     <MESSAGE value="230208 ElisaBluebell" />
-    <option name="LAST_COMMIT_MESSAGE" value="230208 ElisaBluebell" />
+    <MESSAGE value="Definite send_quiz_by_location&#10;230208 ElisaBluebell" />
+    <option name="LAST_COMMIT_MESSAGE" value="Definite send_quiz_by_location&#10;230208 ElisaBluebell" />
   </component>
 </project>
