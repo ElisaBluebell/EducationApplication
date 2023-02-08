@@ -39,8 +39,8 @@ class MainServer:
         elif command == '/ask_check_student':
             self.send_whole_qna_data(content, client_sock)
 
-        elif command == '/':
-            pass
+        elif command[:5] == '/quiz':
+            self.send_quiz_by_location(command, client_sock)
 
     def login_process(self, login_list, client_sock):
         login_id, login_password = login_list
@@ -102,7 +102,11 @@ class MainServer:
         correct_answer = st.execute_db(sql)[0][0]
 
     def send_quiz_by_location(self, location, client_sock):
-        pass
+        location = location[:7]
+        if location == 'gangwon':
+            area_name = '강원도'
+        elif location == '':
+            pass
 
 
 if __name__ == "__main__":
