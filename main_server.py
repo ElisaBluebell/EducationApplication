@@ -1,5 +1,4 @@
 import datetime
-
 import select
 import server_tool as st
 
@@ -64,8 +63,8 @@ class MainServer:
             pass
 
     def check_answer(self, answer, client_sock):
-        correct_answer = slq = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]}'
-
+        sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]}'
+        correct_answer = st.execute_db(sql)[0][0]
 
     def send_quiz_by_location(self, location, client_sock):
         pass
