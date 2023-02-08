@@ -48,11 +48,11 @@ def check_if_exist(thing_need_check, table, column):
 
 def login_process(login_list, client_sock):
     login_id, login_password = login_list
-    if check_if_exist(login_id, 'account', 'user_id') == 0:
+    if check_if_exist(login_id, 'user_account', 'user_id') == 0:
         send_command('/login_id_fail', '', client_sock)
 
     else:
-        if check_if_exist(login_password, 'account', 'user_password') == 0:
+        if check_if_exist(login_password, 'user_account', 'user_password') == 0:
             send_command('/login_password_fail', '', client_sock)
 
         else:
@@ -61,14 +61,14 @@ def login_process(login_list, client_sock):
 
 
 def get_user_name(user_id):
-    sql = f'SELECT user_name FROM account WHERE user_id="{user_id}"'
+    sql = f'SELECT user_name FROM user_account WHERE user_id="{user_id}"'
     return execute_db(sql)[0][0]
 
 
 def register_user(register_info, client_sock):
     user_class, user_name, user_id, user_password = register_info
 
-    if check_if_exist(user_id, 'account', 'user_id') == 1:
+    if check_if_exist(user_id, 'user_account', 'user_id') == 1:
         send_command('/register_fail', '', client_sock)
 
     else:
@@ -101,9 +101,13 @@ def send_whole_qna_data(dummy, client_sock):
 
 
 def regist_user(register_info, client_sock):
-    sql = f'INSERT INTO account (class, user_name, user_id, user_password, point)' \
+    sql = f'INSERT INTO user_account (class, user_name, user_id, user_password, point)' \
           f' VALUES("{register_info[0]}", "{register_info[1]}", "{register_info[2]}", "{register_info[3]}", 0)'
     execute_db(sql)
+
+    sql = 'CALL new_user()'
+    execute_db(sql)
+
     send_command('/register_success', '', client_sock)
 
 
