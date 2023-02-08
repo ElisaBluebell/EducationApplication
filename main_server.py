@@ -102,11 +102,30 @@ class MainServer:
         correct_answer = st.execute_db(sql)[0][0]
 
     def send_quiz_by_location(self, location, client_sock):
-        location = location[:7]
+        location = location[7:]
+        print(location)
         if location == 'gangwon':
             area_name = '강원도'
-        elif location == '':
-            pass
+        elif location == 'seoul':
+            area_name = '서울/경기'
+        elif location == 'chungbuk':
+            area_name = '충청북도'
+        elif location == 'chungnam':
+            area_name = '충청남도'
+        elif location == 'gyeongbuk':
+            area_name = '경상북도'
+        elif location == 'gyeongnam':
+            area_name = '경상남도'
+        elif location == 'jeonbook':
+            area_name = '전라북도'
+        elif location == 'jeonnam':
+            area_name = '전라남도'
+        else:
+            area_name = '제주도'
+
+        sql = f'SELECT quiz_index, question, correct, quiz_score FROM quiz WHERE area_name="{area_name}"'
+        location_quiz = st.execute_db(sql)
+        st.send_command('/location_quiz', location_quiz, client_sock)
 
 
 if __name__ == "__main__":
