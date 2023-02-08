@@ -1,6 +1,19 @@
 import server_tool as st
 
 
+def get_useful_data(raw_data):
+    mntnm = []
+    aeatreason = []
+    overview = []
+    details = []
+    for i in range(len(raw_data['response']['body']['items']['item'])):
+        mntnm.append(raw_data['response']['body']['items']['item'][i]['mntnm'])
+        aeatreason.append(raw_data['response']['body']['items']['item'][i]['aeatreason'])
+        overview.append(raw_data['response']['body']['items']['item'][i]['overview'])
+        details.append(raw_data['response']['body']['items']['item'][i]['details'])
+    return mntnm, aeatreason, overview, details
+
+
 def command_processor(message, client_sock):
     command = message[0]
     content = message[1]
