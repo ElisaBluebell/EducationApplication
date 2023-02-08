@@ -27,7 +27,6 @@ class MainServer:
                             try:
                                 message = eval(data)
                                 self.command_processor(message, sock)
-                                # st.send_command('/This is Server', '', sock)
 
                             except TypeError:
                                 print('TypeError Occurred')
