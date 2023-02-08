@@ -27,7 +27,7 @@ class MainServer:
                         if data:
                             try:
                                 message = eval(data)
-                                st.command_processor(message, sock)
+                                self.command_processor(message, sock)
                                 # st.send_command('/This is Server', '', sock)
 
                             except TypeError:
@@ -40,6 +40,23 @@ class MainServer:
                     except ConnectionResetError:
                         self.socks = st.connection_lost(sock, self.socks)
                         continue
+
+    @staticmethod
+    def command_processor(message, client_sock):
+        print(message)
+        command = message[0]
+        content = message[1]
+        if command == '/register_user':
+            st.register_user(content, client_sock)
+
+        elif command == '/login_student':
+            st.student_login(content, client_sock)
+
+        elif command == '/ask_student':
+            st.question_from_student(content, client_sock)
+
+        elif command == '/ask_check_student':
+            st.send_whole_qna_data(content, client_sock)
 
     def check_answer(self, answer, client_sock):
         pass

@@ -43,7 +43,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Kiot/Desktop/JohnKParkProjects/EducationApplication&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.main_server (1)">
+  <component name="RunManager" selected="Python.chat_client">
     <configuration name="chat_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EducationApplication" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -151,8 +151,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main_server (1)" />
         <item itemvalue="Python.chat_client" />
+        <item itemvalue="Python.main_server (1)" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.new" />
         <item itemvalue="Python.student" />
@@ -308,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675774405429</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="230207 ElisaBluebell">
+      <created>1675812177739</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1675812177739</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

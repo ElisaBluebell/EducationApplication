@@ -24,23 +24,6 @@ def add_client_to_socket_list(sock, socket_list):
     return client_socket, addr, socket_list
 
 
-def command_processor(message, client_sock):
-    print(message)
-    command = message[0]
-    content = message[1]
-    if command == '/register_user':
-        register_user(content, client_sock)
-
-    elif command == '/login_student':
-        student_login(content, client_sock)
-
-    elif command == '/ask_student':
-        question_from_student(content, client_sock)
-
-    elif command == '/ask_check_student':
-        send_whole_qna_data(content, client_sock)
-
-
 def send_command(command, content, s):
     data = json.dumps([command, content])
     print(f'Server Message: {data} [{datetime.datetime.now()}]')
@@ -118,8 +101,8 @@ def send_whole_qna_data(dummy, client_sock):
 
 
 def regist_user(register_info, client_sock):
-    sql = f'INSERT INTO account VALUES("{register_info[0]}", "{register_info[1]}", "{register_info[2]}", ' \
-          f'"{register_info[3]}")'
+    sql = f'INSERT INTO account (class, user_name, user_id, user_password, point)' \
+          f' VALUES("{register_info[0]}", "{register_info[1]}", "{register_info[2]}", "{register_info[3]}", 0)'
     execute_db(sql)
     send_command('/register_success', '', client_sock)
 
