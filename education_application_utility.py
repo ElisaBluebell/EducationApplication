@@ -1,6 +1,28 @@
 import server_tool as st
 
 
+def command_processor(message, client_sock):
+    command = message[0]
+    content = message[1]
+    if command == '/register_user':
+        register_user(content, client_sock)
+
+    elif command == '/login_student':
+        login_process(content, client_sock)
+
+    elif command == '/login_teacher':
+        login_process(content, client_sock)
+
+    elif command == '/ask_student':
+        question_from_student(content, client_sock)
+
+    elif command == '/ask_check_student':
+        send_whole_qna_data(content, client_sock)
+
+    elif command == '/':
+        pass
+
+
 def login_process(login_list, client_sock):
     login_id, login_password = login_list
     if st.check_if_exist(login_id, 'user_account', 'user_id') == 0:

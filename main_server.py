@@ -27,7 +27,7 @@ class MainServer:
                         if data:
                             try:
                                 message = eval(data)
-                                self.command_processor(message, sock)
+                                eau.command_processor(message, sock)
 
                             except TypeError:
                                 print('TypeError Occurred')
@@ -39,28 +39,6 @@ class MainServer:
                     except ConnectionResetError:
                         self.socks = st.connection_lost(sock, self.socks)
                         continue
-
-    @staticmethod
-    def command_processor(message, client_sock):
-        command = message[0]
-        content = message[1]
-        if command == '/register_user':
-            eau.register_user(content, client_sock)
-
-        elif command == '/login_student':
-            eau.login_process(content, client_sock)
-
-        elif command == '/login_teacher':
-            eau.login_process(content, client_sock)
-
-        elif command == '/ask_student':
-            eau.question_from_student(content, client_sock)
-
-        elif command == '/ask_check_student':
-            eau.send_whole_qna_data(content, client_sock)
-
-        elif command == '/':
-            pass
 
     def check_answer(self, answer, client_sock):
         sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]}'
