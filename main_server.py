@@ -58,6 +58,9 @@ class MainServer:
         elif command == '/ask_check_student':
             st.send_whole_qna_data(content, client_sock)
 
+        elif command == '/':
+            pass
+
     def check_answer(self, answer, client_sock):
         pass
         # slq = 'SELECT correct FROM quiz WHERE '

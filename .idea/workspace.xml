@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46ccca3f-dd19-47ed-a14e-b129d4b4caf9" name="Changes" comment="230207 ElisaBluebell">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_tool.py" afterDir="false" />
-    </list>
+    <list default="true" id="46ccca3f-dd19-47ed-a14e-b129d4b4caf9" name="Changes" comment="230208 ElisaBluebell" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -315,7 +311,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675812177739</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="230208 ElisaBluebell">
+      <created>1675819753176</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1675819753176</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -335,6 +338,7 @@
     <MESSAGE value="definite sock_initialize&#10;definite turn_server_on&#10;definite set_client&#10;definite add_client_to_list&#10;definite get_database_from_url&#10;definite xml_to_json&#10;definite get_useful_data&#10;definite execute_db&#10;230206 ElisaBluebell" />
     <MESSAGE value="230206 ElisaBluebell" />
     <MESSAGE value="230207 ElisaBluebell" />
-    <option name="LAST_COMMIT_MESSAGE" value="230207 ElisaBluebell" />
+    <MESSAGE value="230208 ElisaBluebell" />
+    <option name="LAST_COMMIT_MESSAGE" value="230208 ElisaBluebell" />
   </component>
 </project>
