@@ -46,7 +46,7 @@ def check_if_exist(thing_need_check, table, column):
     return 0
 
 
-def student_login(login_list, client_sock):
+def login_process(login_list, client_sock):
     login_id, login_password = login_list
     if check_if_exist(login_id, 'account', 'user_id') == 0:
         send_command('/login_id_fail', '', client_sock)

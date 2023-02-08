@@ -50,7 +50,10 @@ class MainServer:
             st.register_user(content, client_sock)
 
         elif command == '/login_student':
-            st.student_login(content, client_sock)
+            st.login_process(content, client_sock)
+
+        elif command == '/login_teacher':
+            st.login_process(content, client_sock)
 
         elif command == '/ask_student':
             st.question_from_student(content, client_sock)
@@ -62,8 +65,8 @@ class MainServer:
             pass
 
     def check_answer(self, answer, client_sock):
-        pass
-        # slq = 'SELECT correct FROM quiz WHERE '
+        correct_answer = slq = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]}'
+
 
     def send_quiz_by_location(self, location, client_sock):
         pass
