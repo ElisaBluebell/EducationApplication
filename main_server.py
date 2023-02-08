@@ -1,5 +1,3 @@
-import datetime
-import select
 import server_tool as st
 import education_application_utility as eau
 
@@ -13,6 +11,8 @@ class MainServer:
         self.turn_server_on()
 
     def turn_server_on(self):
+        import datetime
+        import select
         while True:
             read_socket, dummy1, dummy2 = select.select(self.socks, [], [], 0)
             for sock in read_socket:
