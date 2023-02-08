@@ -43,7 +43,6 @@ class MainServer:
 
     @staticmethod
     def command_processor(message, client_sock):
-        print(message)
         command = message[0]
         content = message[1]
         if command == '/register_user':

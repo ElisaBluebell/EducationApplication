@@ -25,8 +25,8 @@ def add_client_to_socket_list(sock, socket_list):
 
 
 def send_command(command, content, s):
+    print(f'Server Message: {command}, {content} [{datetime.datetime.now()}]')
     data = json.dumps([command, content])
-    print(f'Server Message: {data} [{datetime.datetime.now()}]')
     s.send(data.encode())
 
 
