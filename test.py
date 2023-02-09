@@ -1,0 +1,1 @@
+print('mountain_data9'[:13])

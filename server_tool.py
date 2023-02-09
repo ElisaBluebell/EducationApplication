@@ -68,6 +68,13 @@ def turn_server_on(command_processor, server_socket, socks):
                     continue
 
 
+def null_to_zero(item_list):
+    for item in item_list:
+        for i in range(len(item)):
+            if item[i] is None:
+                item[i] = 0
+
+
 def check_if_exist(thing_need_check, table, column):
     sql = f'SELECT {column} FROM {table}'
     db_check_list = execute_db(sql)
