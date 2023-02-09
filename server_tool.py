@@ -49,15 +49,19 @@ def turn_server_on(command_processor, server_socket, socks):
             else:
                 try:
                     data = sock.recv(8192).decode('utf-8')
-                    print(f'Received Message: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
+                    print(f'Received Data: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
 
                     if data:
                         try:
                             message = eval(data)
                             command_processor(message, sock)
+                            print(f'Received Message: {sock.getpeername()}: {message} [{datetime.datetime.now()}]')
 
                         except TypeError:
                             print('TypeError Occurred')
+
+                        except NameError:
+                            print('NameError Occurred')
 
                     if not data:
                         socks = connection_lost(sock, socks)

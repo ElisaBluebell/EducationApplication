@@ -55,6 +55,10 @@ class MainServer:
         elif command == '/qna':
             self.send_whole_qna_data(content, client_sock)
 
+        elif command == '/answer_send':
+            self.insert_qna_answer_to_database(content, client_sock)
+
+
         # elif command == 'quiz_request':
         #     self.send_api_data_to_teacher(client_sock)
 
@@ -87,7 +91,7 @@ class MainServer:
 
             else:
                 login_name = st.get_single_item(login_id)
-                # st.send_command('/login_success', [login_name, self.mntnm, self.aeatreason, self.overview, self.details], client_sock)
+                st.send_command('/login_success', login_name, client_sock)
 
     def register_user(self, register_info, client_sock):
         user_class, user_name, user_id, user_password = register_info
@@ -133,6 +137,15 @@ class MainServer:
     def check_answer(self, answer, client_sock):
         sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]}'
         correct_answer = st.execute_db(sql)[0][0]
+
+    def insert_qna_answer_to_database(self, answer, client_sock):
+        qna_index = answer[1]
+        answer = answer[0]
+
+        sql = f'UPDATE qna SET answer="{answer}" WHERE qna_index={qna_index}'
+        st.execute_db(sql)
+
+        st.send_command('/answer_submitted', '', client_sock)
 
     def send_quiz_by_location(self, location, client_sock):
         location = location[7:]
