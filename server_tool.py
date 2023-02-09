@@ -48,7 +48,7 @@ def turn_server_on(command_processor, server_socket, socks):
 
             else:
                 try:
-                    data = sock.recv(1024).decode('utf-8')
+                    data = sock.recv(8192).decode('utf-8')
                     print(f'Received Message: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
 
                     if data:
