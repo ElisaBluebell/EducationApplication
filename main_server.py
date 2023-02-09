@@ -3,14 +3,24 @@ import server_tool as st
 
 class MainServer:
     def __init__(self):
-        xml_string = st.get_database_from_url('http://openapi.forest.go.kr/openapi/service/cultureInfoService/gdTrailInfoOpenAPI?serviceKey=yn8uwUR3eheqowtPnA9QRTQ9i8mYGhGEetp6HDG1hMhCeH9%2BNJFN6WlIM1AzfgrZB59syoKUT1rAVveE9J6Okg%3D%3D&searchMtNm=&searchArNm=&pageNo=1&numOfRows=100')
-        raw_data = st.xml_to_json(xml_string)
+        # xml_string = st.get_database_from_url('http://openapi.forest.go.kr/openapi/service/cultureInfoService/gdTrailInfoOpenAPI?serviceKey=yn8uwUR3eheqowtPnA9QRTQ9i8mYGhGEetp6HDG1hMhCeH9%2BNJFN6WlIM1AzfgrZB59syoKUT1rAVveE9J6Okg%3D%3D&searchMtNm=&searchArNm=&pageNo=1&numOfRows=100')
+        # raw_data = st.xml_to_json(xml_string)
 
-        self.mntnm, self.aeatreason, self.overview, self.details = self.get_useful_data(raw_data)
-        st.null_to_zero([self.mntnm, self.aeatreason, self.overview, self.details])
+        # self.mntnm, self.aeatreason, self.overview, self.details = self.get_useful_data(raw_data)
+        # st.null_to_zero([self.mntnm, self.aeatreason, self.overview, self.details])
 
         server_socket, socks = st.socket_initialize('10.10.21.121', 9000)
         st.turn_server_on(self.command_processor, server_socket, socks)
+
+        # for i in range(len(self.mntnm)):
+        #     print('length: ', len(self.mntnm))
+        #     print('i + 1: ', i + 1)
+        #     print('mntnm: ', self.mntnm[i])
+        #     print('aeatreason: ', self.aeatreason[i])
+        #     print('overview: ', self.overview[i])
+        #     print('details: ', self.details[i])
+        #     sql = f'''INSERT INTO education_data VALUES({i + 1}, "{self.mntnm[i]}", "{self.aeatreason[i]}", "{self.overview[i]}", "{self.details[i]}")'''
+        #     st.execute_db(sql)
 
     def get_useful_data(self, raw_data):
         mntnm = []
@@ -77,7 +87,7 @@ class MainServer:
 
             else:
                 login_name = st.get_single_item(login_id)
-                st.send_command('/login_success', [login_name, self.mntnm, self.aeatreason, self.overview, self.details], client_sock)
+                # st.send_command('/login_success', [login_name, self.mntnm, self.aeatreason, self.overview, self.details], client_sock)
 
     def register_user(self, register_info, client_sock):
         user_class, user_name, user_id, user_password = register_info

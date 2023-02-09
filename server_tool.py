@@ -73,6 +73,9 @@ def null_to_zero(item_list):
         for i in range(len(item)):
             if item[i] is None:
                 item[i] = 0
+            if type(item[i]) == str:
+                item[i] = item[i].replace("\'", """"\\'""")
+                item[i] = item[i].replace('\"', '''\\"''')
 
 
 def check_if_exist(thing_need_check, table, column):
