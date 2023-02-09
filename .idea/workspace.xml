@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46ccca3f-dd19-47ed-a14e-b129d4b4caf9" name="Changes" comment="230208 ElisaBluebell">
-      <change afterPath="$PROJECT_DIR$/server_tool.py" afterDir="false" />
+    <list default="true" id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="230208 ElisaBluebell">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/education_application_utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/education_application_utility.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +41,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Kiot/Desktop/JohnKParkProjects/EducationApplication&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.main_server (1)">
+  <component name="RunManager" selected="Python.chat_client">
     <configuration name="chat_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EducationApplication" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -152,18 +149,18 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main_server (1)" />
         <item itemvalue="Python.chat_client" />
+        <item itemvalue="Python.main_server (1)" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.new" />
         <item itemvalue="Python.student" />
+        <item itemvalue="Python.new" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="46ccca3f-dd19-47ed-a14e-b129d4b4caf9" name="Changes" comment="" />
+      <changelist id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="230208 ElisaBluebell" />
       <created>1675646366145</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -372,7 +369,70 @@
       <option name="project" value="LOCAL" />
       <updated>1675838972017</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="230208 ElisaBluebell">
+      <created>1675840929016</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1675840929016</updated>
+    </task>
+    <task id="LOCAL-00031" summary="230208 ElisaBluebell">
+      <created>1675841004466</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1675841004466</updated>
+    </task>
+    <task id="LOCAL-00032" summary="230208 ElisaBluebell">
+      <created>1675841050829</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1675841050829</updated>
+    </task>
+    <task id="LOCAL-00033" summary="230208 ElisaBluebell">
+      <created>1675842150629</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1675842150629</updated>
+    </task>
+    <task id="LOCAL-00034" summary="230208 ElisaBluebell">
+      <created>1675842582596</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1675842582596</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Definite send_quiz_by_location&#10;230208 ElisaBluebell">
+      <created>1675853232622</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1675853232622</updated>
+    </task>
+    <task id="LOCAL-00036" summary="230208 ElisaBluebell">
+      <created>1675853397321</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1675853397321</updated>
+    </task>
+    <task id="LOCAL-00037" summary="230208 ElisaBluebell">
+      <created>1675858943206</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1675858943206</updated>
+    </task>
+    <task id="LOCAL-00038" summary="230208 ElisaBluebell">
+      <created>1675902646909</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1675902646909</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -392,6 +452,7 @@
     <MESSAGE value="definite sock_initialize&#10;definite turn_server_on&#10;definite set_client&#10;definite add_client_to_list&#10;definite get_database_from_url&#10;definite xml_to_json&#10;definite get_useful_data&#10;definite execute_db&#10;230206 ElisaBluebell" />
     <MESSAGE value="230206 ElisaBluebell" />
     <MESSAGE value="230207 ElisaBluebell" />
+    <MESSAGE value="Definite send_quiz_by_location&#10;230208 ElisaBluebell" />
     <MESSAGE value="230208 ElisaBluebell" />
     <option name="LAST_COMMIT_MESSAGE" value="230208 ElisaBluebell" />
   </component>

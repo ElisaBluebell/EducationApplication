@@ -37,6 +37,37 @@ def connection_lost(sock, socks):
     return socks
 
 
+def turn_server_on(command_processor, server_socket, socks):
+    import datetime
+    import select
+    while True:
+        read_socket, dummy1, dummy2 = select.select(socks, [], [], 0)
+        for sock in read_socket:
+            if sock == server_socket:
+                client_socket, addr, socks = add_client_to_socket_list(sock, socks)
+
+            else:
+                try:
+                    data = sock.recv(1024).decode('utf-8')
+                    print(f'Received Message: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
+
+                    if data:
+                        try:
+                            message = eval(data)
+                            command_processor(message, sock)
+
+                        except TypeError:
+                            print('TypeError Occurred')
+
+                    if not data:
+                        socks = connection_lost(sock, socks)
+                        continue
+
+                except ConnectionResetError:
+                    socks = connection_lost(sock, socks)
+                    continue
+
+
 def check_if_exist(thing_need_check, table, column):
     sql = f'SELECT {column} FROM {table}'
     db_check_list = execute_db(sql)
@@ -51,6 +82,16 @@ def get_single_item(key):
     return execute_db(sql)[0][0]
 
 
+def get_whole_data(table):
+    sql = f'SELECT * FROM {table}'
+    return execute_db(sql)
+
+
+def get_whole_data_where(table, key_column, key):
+    sql = f'SELECT * FROM {table} WHERE {key_column}="{key}"'
+    return execute_db(sql)
+
+
 def get_database_from_url(url):
     response = requests.get(url)
     return response.text
@@ -59,19 +100,6 @@ def get_database_from_url(url):
 def xml_to_json(xml_string):
     json_string = json.dumps(xmltodict.parse(xml_string), indent=4)
     return json.loads(json_string)
-
-
-def get_useful_data(raw_data):
-    mntnm = []
-    aeatreason = []
-    overview = []
-    details = []
-    for i in range(len(raw_data['response']['body']['items']['item'])):
-        mntnm.append(raw_data['response']['body']['items']['item'][i]['mntnm'])
-        aeatreason.append(raw_data['response']['body']['items']['item'][i]['aeatreason'])
-        overview.append(raw_data['response']['body']['items']['item'][i]['overview'])
-        details.append(raw_data['response']['body']['items']['item'][i]['details'])
-    return mntnm, aeatreason, overview, details
 
 
 def execute_db(sql):
