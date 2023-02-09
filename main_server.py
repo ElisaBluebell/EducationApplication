@@ -28,10 +28,10 @@ class MainServer:
             self.register_user(content, client_sock)
 
         elif command == '/login_student':
-            self.login_process(content, client_sock)
+            self.student_login_process(content, client_sock)
 
         elif command == '/login_teacher':
-            self.login_process(content, client_sock)
+            self.teacher_login_process(content, client_sock)
 
         elif command == '/ask_student':
             self.question_from_student(content, client_sock)
@@ -42,7 +42,22 @@ class MainServer:
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
 
-    def login_process(self, login_list, client_sock):
+    def student_login_process(self, login_list, client_sock):
+        login_id, login_password = login_list
+        if st.check_if_exist(login_id, 'user_account', 'user_id') == 0:
+            st.send_command('/login_id_fail', '', client_sock)
+
+        else:
+            if st.check_if_exist(login_password, 'user_account', 'user_password') == 0:
+                st.send_command('/login_password_fail', '', client_sock)
+
+            else:
+                quiz_table = st.get_whole_data('quiz')
+                user_data = st.get_whole_data_where('user_account', 'user_id', login_id)
+                login_data = [user_data, quiz_table]
+                st.send_command('/login_success', login_data, client_sock)
+
+    def teacher_login_process(self, login_list, client_sock):
         login_id, login_password = login_list
         if st.check_if_exist(login_id, 'user_account', 'user_id') == 0:
             st.send_command('/login_id_fail', '', client_sock)

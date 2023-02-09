@@ -82,6 +82,16 @@ def get_single_item(key):
     return execute_db(sql)[0][0]
 
 
+def get_whole_data(table):
+    sql = f'SELECT * FROM {table}'
+    return execute_db(sql)
+
+
+def get_whole_data_where(table, key_column, key):
+    sql = f'SELECT * FROM {table} WHERE {key_column}="{key}"'
+    return execute_db(sql)
+
+
 def get_database_from_url(url):
     response = requests.get(url)
     return response.text
