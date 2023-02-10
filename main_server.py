@@ -230,6 +230,12 @@ class MainServer:
         location_quiz = st.execute_db(sql)
         st.send_command('/location_quiz', location_quiz, client_sock)
 
+    def chat_message(self):
+        pass
+
+    def send_chat_message(self):
+        pass
+
 
 if __name__ == "__main__":
     main_server = MainServer
