@@ -90,7 +90,7 @@ class MainServer:
                 st.send_command('/login_password_fail', '', client_sock)
 
             else:
-                login_name = st.get_single_item(login_id)
+                login_name = st.get_single_item('user_name', 'user_account', 'user_id', login_id)
                 st.send_command('/login_success', login_name, client_sock)
 
     def register_user(self, register_info, client_sock):

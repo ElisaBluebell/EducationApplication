@@ -77,9 +77,6 @@ def null_to_zero(item_list):
         for i in range(len(item)):
             if item[i] is None:
                 item[i] = 0
-            if type(item[i]) == str:
-                item[i] = item[i].replace("\'", """"\\'""")
-                item[i] = item[i].replace('\"', '''\\"''')
 
 
 def check_if_exist(thing_need_check, table, column):
@@ -91,8 +88,8 @@ def check_if_exist(thing_need_check, table, column):
     return 0
 
 
-def get_single_item(key):
-    sql = f'SELECT user_name FROM user_account WHERE user_id="{key}"'
+def get_single_item(item_column, table, column, key):
+    sql = f'SELECT {item_column} FROM {table} WHERE {column}="{key}"'
     return execute_db(sql)[0][0]
 
 
