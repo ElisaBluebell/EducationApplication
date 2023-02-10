@@ -79,11 +79,11 @@ def null_to_zero(item_list):
                 item[i] = 0
 
 
-def check_if_exist(thing_need_check, table, column):
+def check_if_item_exist(item, table, column):
     sql = f'SELECT {column} FROM {table}'
     db_check_list = execute_db(sql)
     for i in range(len(db_check_list)):
-        if thing_need_check == db_check_list[i][0]:
+        if item == db_check_list[i][0]:
             return 1
     return 0
 

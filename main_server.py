@@ -51,7 +51,7 @@ class MainServer:
     def check_registrable(self, regist_info, client_sock):
         user_class, user_name, user_id, user_password = regist_info
 
-        if st.check_if_exist(user_id, 'user_account', 'user_id') == 1:
+        if st.check_if_item_exist(user_id, 'user_account', 'user_id') == 1:
             st.send_command('/register_fail', '', client_sock)
 
         else:
@@ -69,11 +69,11 @@ class MainServer:
 
     def student_login_process(self, login_list, client_sock):
         login_id, login_password = login_list
-        if st.check_if_exist(login_id, 'user_account', 'user_id') == 0:
+        if st.check_if_item_exist(login_id, 'user_account', 'user_id') == 0:
             st.send_command('/login_id_fail', '', client_sock)
 
         else:
-            if st.check_if_exist(login_password, 'user_account', 'user_password') == 0:
+            if st.check_if_item_exist(login_password, 'user_account', 'user_password') == 0:
                 st.send_command('/login_password_fail', '', client_sock)
 
             else:
@@ -84,11 +84,11 @@ class MainServer:
 
     def teacher_login_process(self, login_list, client_sock):
         login_id, login_password = login_list
-        if st.check_if_exist(login_id, 'user_account', 'user_id') == 0:
+        if st.check_if_item_exist(login_id, 'user_account', 'user_id') == 0:
             st.send_command('/login_id_fail', '', client_sock)
 
         else:
-            if st.check_if_exist(login_password, 'user_account', 'user_password') == 0:
+            if st.check_if_item_exist(login_password, 'user_account', 'user_password') == 0:
                 st.send_command('/login_password_fail', '', client_sock)
 
             else:
