@@ -43,6 +43,12 @@ class MainServer:
         elif command == '/answer_send':
             self.insert_qna_answer_to_database(content, client_sock)
 
+        elif command == '/student_score':
+            self.student_score(client_sock)
+
+        elif command == '/update_send':
+            self.add_quiz(content, client_sock)
+
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
 
@@ -58,7 +64,7 @@ class MainServer:
     @staticmethod
     def regist_user(register_info, client_sock):
         sql = f'INSERT INTO user_account (class, user_name, user_id, user_password, point)' \
-              f' VALUES("{register_info[0]}", "{register_info[1]}", "{register_info[2]}", "{register_info[3]}", 0)'
+              f' VALUES("{register_info[0]}", "{register_info[1]}", "{register_info[2]}", "{register_info[3]}", 0);'
         st.execute_db(sql)
 
         sql = 'CALL new_user()'
@@ -101,7 +107,7 @@ class MainServer:
         posted_time, student_name, question = question_data
 
         sql = f'INSERT INTO qna(posted_time, student_name, question) ' \
-              f'VALUES("{posted_time}", "{student_name}", "{question}")'
+              f'VALUES("{posted_time}", "{student_name}", "{question}");'
         st.execute_db(sql)
 
         st.send_command('/post_success', '', client_sock)
@@ -119,7 +125,7 @@ class MainServer:
 
     @staticmethod
     def check_answer(answer, client_sock):
-        sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]}'
+        sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]};'
         correct_answer = st.execute_db(sql)[0][0]
 
     @staticmethod
@@ -127,10 +133,76 @@ class MainServer:
         qna_index = answer[1]
         answer = answer[0]
 
-        sql = f'UPDATE qna SET answer="{answer}" WHERE qna_index={qna_index}'
+        sql = f'UPDATE qna SET answer="{answer}" WHERE qna_index={qna_index};'
         st.execute_db(sql)
 
         st.send_command('/answer_submitted', '', client_sock)
+
+    @staticmethod
+    def student_score(client_sock):
+        user_index = []
+        user_score_data = []
+
+        sql = 'SELECT user_index FROM user_account WHERE class="학생";'
+        user_number = st.execute_db(sql)
+
+        for i in range(len(user_number)):
+            user_index.append(user_number[i][0])
+
+        for i in user_index:
+            sql = f'SELECT user_name FROM user_account WHERE user_index={i};'
+            user_name = st.execute_db(sql)[0][0]
+
+            sql = f'''
+            SELECT SUM(a.correct), 
+            SUM(a.solve_datetime), 
+            b.area_name 
+            FROM ss AS a 
+            INNER JOIN quiz AS b 
+            ON a.quiz_index=b.quiz_index 
+            WHERE a.user_index={i} 
+            GROUP BY b.area_name
+            ;'''
+            user_score = st.execute_db(sql)
+
+            user_data = [user_name, user_score]
+            user_score_data.append(user_data)
+
+        st.send_command('/student_score', user_score_data, client_sock)
+
+    @staticmethod
+    def add_quiz(data, client_sock):
+        quiz = data[0]
+        answer = data[1]
+        area_name = data[2][1:-4]
+
+        if area_name == 'gangwon':
+            area_name = '강원도'
+        elif area_name == 'seoul':
+            area_name = '서울/경기'
+        elif area_name == 'chungbuk':
+            area_name = '충청북도'
+        elif area_name == 'chungnam':
+            area_name = '충청남도'
+        elif area_name == 'gyeongbuk':
+            area_name = '경상북도'
+        elif area_name == 'gyeongnam':
+            area_name = '경상남도'
+        elif area_name == 'jeonbuk':
+            area_name = '전라북도'
+        elif area_name == 'jeonnam':
+            area_name = '전라남도'
+        else:
+            area_name = '제주도'
+
+        sql = f'INSERT INTO quiz(question, correct, area_name, quiz_score) ' \
+              f'VALUES("{quiz}", "{answer}", "{area_name}", 10);'
+        st.execute_db(sql)
+
+        sql = 'CALL new_quiz()'
+        st.execute_db(sql)
+
+        st.send_command('/quiz_inserted', '', client_sock)
 
     @staticmethod
     def send_quiz_by_location(location, client_sock):
@@ -154,7 +226,7 @@ class MainServer:
         else:
             area_name = '제주도'
 
-        sql = f'SELECT quiz_index, question, correct, quiz_score FROM quiz WHERE area_name="{area_name}"'
+        sql = f'SELECT quiz_index, question, correct, quiz_score FROM quiz WHERE area_name="{area_name}";'
         location_quiz = st.execute_db(sql)
         st.send_command('/location_quiz', location_quiz, client_sock)
 
