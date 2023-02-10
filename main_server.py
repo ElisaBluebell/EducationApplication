@@ -49,6 +49,12 @@ class MainServer:
         elif command == '/update_send':
             self.add_quiz(content, client_sock)
 
+        elif command == '/temp_recieve_chat':
+            self.receive_chat_message(content)
+
+        elif command == '/temp_send_chat':
+            self.send_chat_message(content, client_sock)
+
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
 
@@ -124,7 +130,7 @@ class MainServer:
         st.send_command('/whole_qna_data', whole_qna, client_sock)
 
     @staticmethod
-    def check_answer(answer, client_sock):
+    def insert_score(answer, client_sock):
         sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]};'
         correct_answer = st.execute_db(sql)[0][0]
 
@@ -230,10 +236,10 @@ class MainServer:
         location_quiz = st.execute_db(sql)
         st.send_command('/location_quiz', location_quiz, client_sock)
 
-    def chat_message(self):
+    def receive_chat_message(self, content):
         pass
 
-    def send_chat_message(self):
+    def send_chat_message(self, content, client_sock):
         pass
 
 

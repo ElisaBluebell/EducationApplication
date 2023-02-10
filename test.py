@@ -59,22 +59,22 @@ import server_tool as st
 
 # print('/gangwon_add'[1:-4])
 #
-user_index = []
-user_score_data = []
-sql = 'SELECT user_index FROM user_account WHERE class="학생"'
-user_number = st.execute_db(sql)
-for i in range (len(user_number)):
-    user_index.append(user_number[i][0])
-print(user_index)
-for i in user_index:
-    sql = f'SELECT user_name FROM user_account WHERE user_index={i}'
-    user_name = st.execute_db(sql)[0][0]
-    sql = f'SELECT SUM(a.correct), SUM(a.solve_datetime), b.area_name FROM ss AS a INNER JOIN quiz AS b ON a.quiz_index=b.quiz_index WHERE a.user_index={i} GROUP BY b.area_name;'
-    user_score = st.execute_db(sql)
-    user_data = [user_name, user_score]
-    user_score_data.append(user_data)
-
-print(user_score_data)
+# user_index = []
+# user_score_data = []
+# sql = 'SELECT user_index FROM user_account WHERE class="학생"'
+# user_number = st.execute_db(sql)
+# for i in range (len(user_number)):
+#     user_index.append(user_number[i][0])
+# print(user_index)
+# for i in user_index:
+#     sql = f'SELECT user_name FROM user_account WHERE user_index={i}'
+#     user_name = st.execute_db(sql)[0][0]
+#     sql = f'SELECT SUM(a.correct), SUM(a.solve_datetime), b.area_name FROM ss AS a INNER JOIN quiz AS b ON a.quiz_index=b.quiz_index WHERE a.user_index={i} GROUP BY b.area_name;'
+#     user_score = st.execute_db(sql)
+#     user_data = [user_name, user_score]
+#     user_score_data.append(user_data)
+#
+# print(user_score_data)
 #
 #
 # a = (1, 2, [3, 2])
@@ -82,3 +82,7 @@ print(user_score_data)
 #
 # print(a[2][0])
 # print(b[2][0])
+
+
+# ((0.0, 0.0, '전라남도'), (0.0, 0.0, '경상남도'), (0.0, 0.0, '서울/경기'), (0.0, 0.0, '경상북도'), (0.0, 0.0, '충청북도'), (0.0, 0.0, '충청남도'), (0.0, 0.0, '제주도'), (0.0, 0.0, '전라북도'), (0.0, 0.0, '강원도'))
+a = QTableWidget
