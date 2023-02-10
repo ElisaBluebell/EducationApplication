@@ -6,7 +6,8 @@ class MainServer:
         server_socket, socks = st.socket_initialize('10.10.21.121', 9000)
         st.turn_server_on(self.command_processor, server_socket, socks)
 
-    def get_useful_data(self, raw_data):
+    @staticmethod
+    def get_useful_data(raw_data):
         mntnm = []
         aeatreason = []
         overview = []
@@ -42,9 +43,6 @@ class MainServer:
         elif command == '/answer_send':
             self.insert_qna_answer_to_database(content, client_sock)
 
-        # elif command == 'quiz_request':
-        #     self.send_api_data_to_teacher(client_sock)
-
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
 
@@ -57,7 +55,8 @@ class MainServer:
         else:
             self.regist_user(regist_info, client_sock)
 
-    def regist_user(self, register_info, client_sock):
+    @staticmethod
+    def regist_user(register_info, client_sock):
         sql = f'INSERT INTO user_account (class, user_name, user_id, user_password, point)' \
               f' VALUES("{register_info[0]}", "{register_info[1]}", "{register_info[2]}", "{register_info[3]}", 0)'
         st.execute_db(sql)
@@ -67,7 +66,8 @@ class MainServer:
 
         st.send_command('/register_success', '', client_sock)
 
-    def student_login_process(self, login_list, client_sock):
+    @staticmethod
+    def student_login_process(login_list, client_sock):
         login_id, login_password = login_list
         if st.check_if_item_exist(login_id, 'user_account', 'user_id') == 0:
             st.send_command('/login_id_fail', '', client_sock)
@@ -82,7 +82,8 @@ class MainServer:
                 login_data = [user_data, quiz_table]
                 st.send_command('/login_success', login_data, client_sock)
 
-    def teacher_login_process(self, login_list, client_sock):
+    @staticmethod
+    def teacher_login_process(login_list, client_sock):
         login_id, login_password = login_list
         if st.check_if_item_exist(login_id, 'user_account', 'user_id') == 0:
             st.send_command('/login_id_fail', '', client_sock)
@@ -95,7 +96,8 @@ class MainServer:
                 login_name = st.get_single_item('user_name', 'user_account', 'user_id', login_id)
                 st.send_command('/login_success', login_name, client_sock)
 
-    def question_from_student(self, question_data, client_sock):
+    @staticmethod
+    def question_from_student(question_data, client_sock):
         posted_time, student_name, question = question_data
 
         sql = f'INSERT INTO qna(posted_time, student_name, question) ' \
@@ -104,7 +106,8 @@ class MainServer:
 
         st.send_command('/post_success', '', client_sock)
 
-    def send_whole_qna_data(self, dummy, client_sock):
+    @staticmethod
+    def send_whole_qna_data(dummy, client_sock):
         sql = 'SELECT * FROM qna'
         whole_qna = list(st.execute_db(sql))
         for i in range(len(whole_qna)):
@@ -114,11 +117,13 @@ class MainServer:
                     whole_qna[i][j] = 'X'
         st.send_command('/whole_qna_data', whole_qna, client_sock)
 
-    def check_answer(self, answer, client_sock):
+    @staticmethod
+    def check_answer(answer, client_sock):
         sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]}'
         correct_answer = st.execute_db(sql)[0][0]
 
-    def insert_qna_answer_to_database(self, answer, client_sock):
+    @staticmethod
+    def insert_qna_answer_to_database(answer, client_sock):
         qna_index = answer[1]
         answer = answer[0]
 
@@ -127,7 +132,8 @@ class MainServer:
 
         st.send_command('/answer_submitted', '', client_sock)
 
-    def send_quiz_by_location(self, location, client_sock):
+    @staticmethod
+    def send_quiz_by_location(location, client_sock):
         location = location[7:]
         if location == 'gangwon':
             area_name = '강원도'

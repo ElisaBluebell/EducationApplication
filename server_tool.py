@@ -24,10 +24,10 @@ def add_client_to_socket_list(sock, socket_list):
     return client_socket, addr, socket_list
 
 
-def send_command(command, content, s):
+def send_command(command, content, opponent_socket):
     print(f'Server Message: {command}, {content} [{datetime.datetime.now()}]')
     data = json.dumps([command, content])
-    s.send(data.encode())
+    opponent_socket.send(data.encode())
 
 
 def connection_lost(sock, socks):
