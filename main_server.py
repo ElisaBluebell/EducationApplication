@@ -97,9 +97,6 @@ class MainServer:
 
     def question_from_student(self, question_data, client_sock):
         posted_time, student_name, question = question_data
-        print(posted_time)
-        print(student_name)
-        print(question)
 
         sql = f'INSERT INTO qna(posted_time, student_name, question) ' \
               f'VALUES("{posted_time}", "{student_name}", "{question}")'
