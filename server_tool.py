@@ -88,8 +88,8 @@ def check_if_exist(thing_need_check, table, column):
     return 0
 
 
-def get_single_item(item_column, table, column, key):
-    sql = f'SELECT {item_column} FROM {table} WHERE {column}="{key}"'
+def get_single_item(item_column, table, key_column, key):
+    sql = f'SELECT {item_column} FROM {table} WHERE {key_column}="{key}"'
     return execute_db(sql)[0][0]
 
 

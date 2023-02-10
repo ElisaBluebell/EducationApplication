@@ -3,24 +3,8 @@ import server_tool as st
 
 class MainServer:
     def __init__(self):
-        # xml_string = st.get_database_from_url('http://openapi.forest.go.kr/openapi/service/cultureInfoService/gdTrailInfoOpenAPI?serviceKey=yn8uwUR3eheqowtPnA9QRTQ9i8mYGhGEetp6HDG1hMhCeH9%2BNJFN6WlIM1AzfgrZB59syoKUT1rAVveE9J6Okg%3D%3D&searchMtNm=&searchArNm=&pageNo=1&numOfRows=100')
-        # raw_data = st.xml_to_json(xml_string)
-
-        # self.mntnm, self.aeatreason, self.overview, self.details = self.get_useful_data(raw_data)
-        # st.null_to_zero([self.mntnm, self.aeatreason, self.overview, self.details])
-
         server_socket, socks = st.socket_initialize('10.10.21.121', 9000)
         st.turn_server_on(self.command_processor, server_socket, socks)
-
-        # for i in range(len(self.mntnm)):
-        #     print('length: ', len(self.mntnm))
-        #     print('i + 1: ', i + 1)
-        #     print('mntnm: ', self.mntnm[i])
-        #     print('aeatreason: ', self.aeatreason[i])
-        #     print('overview: ', self.overview[i])
-        #     print('details: ', self.details[i])
-        #     sql = f'''INSERT INTO education_data VALUES({i + 1}, "{self.mntnm[i]}", "{self.aeatreason[i]}", "{self.overview[i]}", "{self.details[i]}")'''
-        #     st.execute_db(sql)
 
     def get_useful_data(self, raw_data):
         mntnm = []
@@ -38,7 +22,7 @@ class MainServer:
         command = message[0]
         content = message[1]
         if command == '/register_user':
-            self.register_user(content, client_sock)
+            self.check_registrable(content, client_sock)
 
         elif command == '/login_student':
             self.student_login_process(content, client_sock)
@@ -58,12 +42,30 @@ class MainServer:
         elif command == '/answer_send':
             self.insert_qna_answer_to_database(content, client_sock)
 
-
         # elif command == 'quiz_request':
         #     self.send_api_data_to_teacher(client_sock)
 
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
+
+    def check_registrable(self, regist_info, client_sock):
+        user_class, user_name, user_id, user_password = regist_info
+
+        if st.check_if_exist(user_id, 'user_account', 'user_id') == 1:
+            st.send_command('/register_fail', '', client_sock)
+
+        else:
+            self.regist_user(regist_info, client_sock)
+
+    def regist_user(self, register_info, client_sock):
+        sql = f'INSERT INTO user_account (class, user_name, user_id, user_password, point)' \
+              f' VALUES("{register_info[0]}", "{register_info[1]}", "{register_info[2]}", "{register_info[3]}", 0)'
+        st.execute_db(sql)
+
+        sql = 'CALL new_user()'
+        st.execute_db(sql)
+
+        st.send_command('/register_success', '', client_sock)
 
     def student_login_process(self, login_list, client_sock):
         login_id, login_password = login_list
@@ -93,15 +95,6 @@ class MainServer:
                 login_name = st.get_single_item('user_name', 'user_account', 'user_id', login_id)
                 st.send_command('/login_success', login_name, client_sock)
 
-    def register_user(self, register_info, client_sock):
-        user_class, user_name, user_id, user_password = register_info
-
-        if st.check_if_exist(user_id, 'user_account', 'user_id') == 1:
-            st.send_command('/register_fail', '', client_sock)
-
-        else:
-            self.regist_user(register_info, client_sock)
-
     def question_from_student(self, question_data, client_sock):
         posted_time, student_name, question = question_data
         print(posted_time)
@@ -123,16 +116,6 @@ class MainServer:
                 if whole_qna[i][j] is None:
                     whole_qna[i][j] = 'X'
         st.send_command('/whole_qna_data', whole_qna, client_sock)
-
-    def regist_user(self, register_info, client_sock):
-        sql = f'INSERT INTO user_account (class, user_name, user_id, user_password, point)' \
-              f' VALUES("{register_info[0]}", "{register_info[1]}", "{register_info[2]}", "{register_info[3]}", 0)'
-        st.execute_db(sql)
-
-        sql = 'CALL new_user()'
-        st.execute_db(sql)
-
-        st.send_command('/register_success', '', client_sock)
 
     def check_answer(self, answer, client_sock):
         sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]}'
