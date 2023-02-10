@@ -48,16 +48,20 @@ def turn_server_on(command_processor, server_socket, socks):
 
             else:
                 try:
-                    data = sock.recv(1024).decode('utf-8')
-                    print(f'Received Message: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
+                    data = sock.recv(8192).decode('utf-8')
+                    print(f'Received Data: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
 
                     if data:
                         try:
                             message = eval(data)
                             command_processor(message, sock)
+                            print(f'Received Message: {sock.getpeername()}: {message} [{datetime.datetime.now()}]')
 
                         except TypeError:
                             print('TypeError Occurred')
+
+                        except NameError:
+                            print('NameError Occurred')
 
                     if not data:
                         socks = connection_lost(sock, socks)
@@ -66,6 +70,16 @@ def turn_server_on(command_processor, server_socket, socks):
                 except ConnectionResetError:
                     socks = connection_lost(sock, socks)
                     continue
+
+
+def null_to_zero(item_list):
+    for item in item_list:
+        for i in range(len(item)):
+            if item[i] is None:
+                item[i] = 0
+            if type(item[i]) == str:
+                item[i] = item[i].replace("\'", """"\\'""")
+                item[i] = item[i].replace('\"', '''\\"''')
 
 
 def check_if_exist(thing_need_check, table, column):

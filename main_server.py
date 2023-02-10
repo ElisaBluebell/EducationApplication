@@ -3,11 +3,24 @@ import server_tool as st
 
 class MainServer:
     def __init__(self):
-        xml_string = st.get_database_from_url('http://openapi.forest.go.kr/openapi/service/cultureInfoService/gdTrailInfoOpenAPI?serviceKey=yn8uwUR3eheqowtPnA9QRTQ9i8mYGhGEetp6HDG1hMhCeH9%2BNJFN6WlIM1AzfgrZB59syoKUT1rAVveE9J6Okg%3D%3D&searchMtNm=&searchArNm=&pageNo=1&numOfRows=100')
-        raw_data = st.xml_to_json(xml_string)
-        mntnm, aeatreason, overview, details = self.get_useful_data(raw_data)
+        # xml_string = st.get_database_from_url('http://openapi.forest.go.kr/openapi/service/cultureInfoService/gdTrailInfoOpenAPI?serviceKey=yn8uwUR3eheqowtPnA9QRTQ9i8mYGhGEetp6HDG1hMhCeH9%2BNJFN6WlIM1AzfgrZB59syoKUT1rAVveE9J6Okg%3D%3D&searchMtNm=&searchArNm=&pageNo=1&numOfRows=100')
+        # raw_data = st.xml_to_json(xml_string)
+
+        # self.mntnm, self.aeatreason, self.overview, self.details = self.get_useful_data(raw_data)
+        # st.null_to_zero([self.mntnm, self.aeatreason, self.overview, self.details])
+
         server_socket, socks = st.socket_initialize('10.10.21.121', 9000)
         st.turn_server_on(self.command_processor, server_socket, socks)
+
+        # for i in range(len(self.mntnm)):
+        #     print('length: ', len(self.mntnm))
+        #     print('i + 1: ', i + 1)
+        #     print('mntnm: ', self.mntnm[i])
+        #     print('aeatreason: ', self.aeatreason[i])
+        #     print('overview: ', self.overview[i])
+        #     print('details: ', self.details[i])
+        #     sql = f'''INSERT INTO education_data VALUES({i + 1}, "{self.mntnm[i]}", "{self.aeatreason[i]}", "{self.overview[i]}", "{self.details[i]}")'''
+        #     st.execute_db(sql)
 
     def get_useful_data(self, raw_data):
         mntnm = []
@@ -38,6 +51,16 @@ class MainServer:
 
         elif command == '/ask_check_student':
             self.send_whole_qna_data(content, client_sock)
+
+        elif command == '/qna':
+            self.send_whole_qna_data(content, client_sock)
+
+        elif command == '/answer_send':
+            self.insert_qna_answer_to_database(content, client_sock)
+
+
+        # elif command == 'quiz_request':
+        #     self.send_api_data_to_teacher(client_sock)
 
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
@@ -96,7 +119,6 @@ class MainServer:
         whole_qna = list(st.execute_db(sql))
         for i in range(len(whole_qna)):
             whole_qna[i] = list(whole_qna[i])
-            print(whole_qna)
             for j in range(len(whole_qna[i])):
                 if whole_qna[i][j] is None:
                     whole_qna[i][j] = 'X'
@@ -115,6 +137,15 @@ class MainServer:
     def check_answer(self, answer, client_sock):
         sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]}'
         correct_answer = st.execute_db(sql)[0][0]
+
+    def insert_qna_answer_to_database(self, answer, client_sock):
+        qna_index = answer[1]
+        answer = answer[0]
+
+        sql = f'UPDATE qna SET answer="{answer}" WHERE qna_index={qna_index}'
+        st.execute_db(sql)
+
+        st.send_command('/answer_submitted', '', client_sock)
 
     def send_quiz_by_location(self, location, client_sock):
         location = location[7:]
