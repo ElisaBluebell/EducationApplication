@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -467,7 +467,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/전라북도.png</normaloff>../../Desktop/의명박6팀(230206~)/전라북도.png</iconset>
+        <normaloff>전라북도.png</normaloff>전라북도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -490,7 +490,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/전라남도.png</normaloff>../../Desktop/의명박6팀(230206~)/전라남도.png</iconset>
+        <normaloff>전라남도.png</normaloff>전라남도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -513,7 +513,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/경상남도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상남도.png</iconset>
+        <normaloff>경상남도.png</normaloff>경상남도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -536,7 +536,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</iconset>
+        <normaloff>경상북도.png</normaloff>경상북도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -559,7 +559,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/충청남도.png</normaloff>../../Desktop/의명박6팀(230206~)/충청남도.png</iconset>
+        <normaloff>충청남도.png</normaloff>충청남도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -585,7 +585,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/충청북도.png</normaloff>../../Desktop/의명박6팀(230206~)/충청북도.png</iconset>
+        <normaloff>충청북도.png</normaloff>충청북도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -608,7 +608,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/서울경기.png</normaloff>../../Desktop/의명박6팀(230206~)/서울경기.png</iconset>
+        <normaloff>서울경기.png</normaloff>서울경기.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -634,7 +634,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/강원도.png</normaloff>../../Desktop/의명박6팀(230206~)/강원도.png</iconset>
+        <normaloff>강원도.png</normaloff>강원도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -657,7 +657,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/제주도.png</normaloff>../../Desktop/의명박6팀(230206~)/제주도.png</iconset>
+        <normaloff>제주도.png</normaloff>제주도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -688,6 +688,25 @@
        <enum>Qt::AutoText</enum>
       </property>
      </widget>
+     <widget class="QLabel" name="login_label_9">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-10</y>
+        <width>1071</width>
+        <height>801</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../Desktop/의명박6팀(230206~)/등산.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
      <zorder>background_label</zorder>
      <zorder>Map_label</zorder>
      <zorder>jeonbuk_btn</zorder>
@@ -700,6 +719,7 @@
      <zorder>gangwon_btn</zorder>
      <zorder>jeju_btn</zorder>
      <zorder>quiz_label</zorder>
+     <zorder>login_label_9</zorder>
     </widget>
     <widget class="QWidget" name="tab_7">
      <attribute name="title">
@@ -723,29 +743,6 @@
       <property name="icon">
        <iconset>
         <normaloff>../../Desktop/의명박6팀(230206~)/강원도.png</normaloff>../../Desktop/의명박6팀(230206~)/강원도.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>800</width>
-        <height>900</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="gyeongbuk_btn2_2">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>470</y>
-        <width>151</width>
-        <height>48</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -925,7 +922,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/충청북도.png</normaloff>../../Desktop/의명박6팀(230206~)/충청북도.png</iconset>
+        <normaloff>충청북도.png</normaloff>충청북도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -948,7 +945,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/서울경기.png</normaloff>../../Desktop/의명박6팀(230206~)/서울경기.png</iconset>
+        <normaloff>서울경기.png</normaloff>서울경기.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -1000,7 +997,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/강원도.png</normaloff>../../Desktop/의명박6팀(230206~)/강원도.png</iconset>
+        <normaloff>강원도.png</normaloff>강원도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -1023,7 +1020,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/전라남도.png</normaloff>../../Desktop/의명박6팀(230206~)/전라남도.png</iconset>
+        <normaloff>전라남도.png</normaloff>전라남도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -1046,7 +1043,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/전라북도.png</normaloff>../../Desktop/의명박6팀(230206~)/전라북도.png</iconset>
+        <normaloff>전라북도.png</normaloff>전라북도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -1069,7 +1066,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/제주도.png</normaloff>../../Desktop/의명박6팀(230206~)/제주도.png</iconset>
+        <normaloff>제주도.png</normaloff>제주도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -1092,7 +1089,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/경상남도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상남도.png</iconset>
+        <normaloff>경상남도.png</normaloff>경상남도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -1115,7 +1112,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/충청남도.png</normaloff>../../Desktop/의명박6팀(230206~)/충청남도.png</iconset>
+        <normaloff>충청남도.png</normaloff>충청남도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -1138,7 +1135,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</iconset>
+        <normaloff>경상북도.png</normaloff>경상북도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -1176,6 +1173,47 @@
        <string/>
       </property>
      </widget>
+     <widget class="QLabel" name="login_label_8">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1071</width>
+        <height>801</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../Desktop/의명박6팀(230206~)/등산.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <zorder>login_label_8</zorder>
+     <zorder>gangwon_btn_2</zorder>
+     <zorder>jeonnam_btn_2</zorder>
+     <zorder>jeonbuk_btn_2</zorder>
+     <zorder>jeju_btn_2</zorder>
+     <zorder>gyeongnam_btn_2</zorder>
+     <zorder>chungnam_btn_2</zorder>
+     <zorder>gyeongbuk_btn_2</zorder>
+     <zorder>Map_label_2</zorder>
+     <zorder>chungbuk_addbtn</zorder>
+     <zorder>gyeonggi_addbtn</zorder>
+     <zorder>o_btn</zorder>
+     <zorder>x_btn</zorder>
+     <zorder>gangwon_addbtn</zorder>
+     <zorder>jeonnam_addbtn</zorder>
+     <zorder>jeonbuk_addbtn</zorder>
+     <zorder>jeju_addbtn</zorder>
+     <zorder>gyeongnam_addbtn</zorder>
+     <zorder>chungnam_addbtn</zorder>
+     <zorder>gyeongbuk_addbtn</zorder>
+     <zorder>quizadd_lineedit</zorder>
+     <zorder>update_label</zorder>
     </widget>
     <widget class="QWidget" name="tab_6">
      <attribute name="title">

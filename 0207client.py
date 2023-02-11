@@ -20,9 +20,15 @@ class WindowClass(QMainWindow, form_class):
         super().__init__()
         self.setupUi(self)
         self.tabWidget.setCurrentIndex(0)
-        pixmap = QPixmap("C:/Users/sw/PycharmProjects/EducationApplication/등산.png")  # 코드 3줄 ui에 이미지를 넣을 수 있음
+        pixmap = QPixmap("등산.png")  # 코드 3줄 ui에 이미지를 넣을 수 있음
         pixmap = pixmap.scaled(700, 700, Qt.KeepAspectRatio, Qt.SmoothTransformation)  # 코드 3줄 ui에 이미지를 넣을 수 있음
         self.login_label.setPixmap(pixmap)  # 코드 3줄 ui에 이미지를 넣을 수 있음
+        self.login_label_3.setPixmap(pixmap)
+        self.login_label_5.setPixmap(pixmap)
+        self.login_label_6.setPixmap(pixmap)
+        self.login_label_7.setPixmap(pixmap)
+        self.login_label_8.setPixmap(pixmap)
+        self.login_label_9.setPixmap(pixmap)
 
         self.initialize_socket()
 
