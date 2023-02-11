@@ -1,5 +1,7 @@
 import sys
 import threading
+import time
+
 import server_tool as st
 from socket import *
 
@@ -101,12 +103,17 @@ class ChatClient(QWidget):
             self.chat_able = 0
 
     def request_past_chat_data(self):
+        self.chat_window.clear()
         # if self.chat_able == 1:
         st.send_command('/request_past_chat_data', [self.user_name, self.user_select.currentText()], self.client_socket)
         # print('유저명: ', self.user_select.currentText())
 
-    def print_past_chat(self):
-        pass
+    def print_past_chat(self, past_chat):
+        for i in range(len(past_chat)):
+            self.chat_window.addItem(past_chat[i])
+
+        time.sleep(0.1)
+        self.chat_window.scrollToBottom()
 
     def send_chat(self):
         self.input_chat.clear()
