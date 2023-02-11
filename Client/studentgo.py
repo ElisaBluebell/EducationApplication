@@ -3,33 +3,27 @@ import socket
 import datetime
 import json
 import select
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import threading
-import faulthandler
-import time
 from select import *
 from socket import *
 import win32api
-import base64
-import ast
 
-HEADER = 64 # 기본 메세지 크기 (바이트)
+HEADER = 64  # 기본 메세지 크기 (바이트)
 FORMAT = 'utf-8'
 SERVER = '10.10.21.121'
 PORT = 9000
 BUFFER = 8192
 ADDR = (SERVER, PORT)
 
-
 form_class = uic.loadUiType("education.ui")[0]
 
 
 class MySignal(QtCore.QObject):
-
     listUser = QtCore.pyqtSignal(str)
     chatLabel = QtCore.pyqtSignal(str)
 
@@ -46,8 +40,8 @@ class StudentWindow(QMainWindow, form_class):
         self.tabWidget.setCurrentIndex(0)
 
         # 날짜, 시간 사용하기
-        self.timer = QTimer(self) # 윈도우가 생성될 때 QTimer 객체 생성한다.
-        self.timer.start(1000) # 생성한 객체에 interval(1초) 간격 설정
+        self.timer = QTimer(self)  # 윈도우가 생성될 때 QTimer 객체 생성한다.
+        self.timer.start(1000)  # 생성한 객체에 interval(1초) 간격 설정
         self.timer.timeout.connect(self.timeout)
 
         # 스테이터스바 이용하기
@@ -97,7 +91,7 @@ class StudentWindow(QMainWindow, form_class):
 
     def pointcheck(self):
         self.point_label.setText(self.Pointlogin)
-        
+
     def ask_question(self):
         self.date = f'{self.str_date} / {self.str_time}'
         self.name = '박의용'
@@ -109,8 +103,7 @@ class StudentWindow(QMainWindow, form_class):
     def ask_check(self):
         btn = self.sender()
         check = btn.text()
-        self.send_command('/ask_check_student',check) # "check=질문 조회"
-        
+        self.send_command('/ask_check_student', check)  # "check=질문 조회"
 
     def timeout(self):
         self.cur_date = QDate.currentDate()
@@ -118,12 +111,12 @@ class StudentWindow(QMainWindow, form_class):
         self.cur_time = QTime.currentTime()
         self.str_time = self.cur_time.toString('hh:mm:ss')
         self.statusBar().showMessage(f'현재 날짜: {self.str_date}, 현재 시간: {self.str_time}')
-        
+
     def connectserver(self):
         self.sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
         self.bufsize = self.sock.getsockopt(SOL_SOCKET, SO_SNDBUF)
         print(self.bufsize)
-    
+
         # SOL_SOCKET = (프로토콜 레벨. 일반)
         # SO_REUSEADDR = (이미 사용중인 주소나 포트에 대해서도 바인드 허용)
         # 소켓을 이용한 서버프로그램을 운용할 때
@@ -162,15 +155,13 @@ class StudentWindow(QMainWindow, form_class):
                             # print(type(message))
                             # print(f'받은 메시지 : {message} [{datetime.datetime.now()}]')
                             # # print(f'\n{fragments[0], fragments[1]}')
-                            
-                                        
+
                             # # print(f'받은 메시지 : {message} [{datetime.datetime.now()}]')
                             # print(f'\n{message[0], message[1]}')
 
-                            self.command_processor(a[0][2:-1],a)
+                            self.command_processor(a[0][2:-1], a)
             else:
                 pass
-
 
     def command_processor(self, command, content):
 
@@ -181,7 +172,7 @@ class StudentWindow(QMainWindow, form_class):
         elif command == '/register_success':
             print("회원가입이 성공했습니다.")
             self.register_success()
-        
+
         elif command == '/login_id_fail':
             print("아이디가 존재하지 않아 로그인에 실패 했습니다.")
             self.login_id_fail()
@@ -189,11 +180,11 @@ class StudentWindow(QMainWindow, form_class):
         elif command == '/login_password_fail':
             print("비밀번호가 일치하지 않아 로그인에 실패 했습니다.")
             self.login_password_fail()
-        
+
         elif command == '/login_success':
             print("로그인에 성공 했습니다.")
             self.login_success(content)
-        
+
         elif command == '/post_success':
             print('질문 등록에 성공하였습니다.')
             self.post_success()
@@ -204,26 +195,26 @@ class StudentWindow(QMainWindow, form_class):
 
         else:
             pass
-    
+
     # def ask_success(self, content):
     #     win32api.MessageBox(0,'질문 조회가 완료되었습니다.', '질문조회', 0)
     #     self.askcheck = content
     #     print(self.askcheck)
 
     def post_success(self):
-        win32api.MessageBox(0,'질문 등록이 완료되었습니다.', '질문등록', 0)
+        win32api.MessageBox(0, '질문 등록이 완료되었습니다.', '질문등록', 0)
         self.ask_textEdit.clear()
 
     def login_id_fail(self):
-        win32api.MessageBox(0,'로그인에 실패했습니다. ID를 확인 해 주세요.', '로그인실패', 16)
+        win32api.MessageBox(0, '로그인에 실패했습니다. ID를 확인 해 주세요.', '로그인실패', 16)
 
     def login_password_fail(self):
-        win32api.MessageBox(0,'로그인에 실패했습니다. 비밀번호를 확인 해 주세요.', '로그인실패', 16)
+        win32api.MessageBox(0, '로그인에 실패했습니다. 비밀번호를 확인 해 주세요.', '로그인실패', 16)
 
     def login_success(self, content):
-        win32api.MessageBox(0,'로그인에 성공하였습니다. 환영합니다.', '로그인완료', 0)
+        win32api.MessageBox(0, '로그인에 성공하였습니다. 환영합니다.', '로그인완료', 0)
         self.quiz_data = content
-        self.inforamtion = [self.quiz_data[3], self.quiz_data[4], self.quiz_data[6][:-2]] # 이름, 아이디, 포인트
+        self.inforamtion = [self.quiz_data[3], self.quiz_data[4], self.quiz_data[6][:-2]]  # 이름, 아이디, 포인트
         print(self.inforamtion)
         self.Namelogin = self.inforamtion[0]
         self.Idlogin = self.inforamtion[1]
@@ -240,20 +231,20 @@ class StudentWindow(QMainWindow, form_class):
         self.tabWidget.setCurrentIndex(2)
 
     def register_success(self):
-        win32api.MessageBox(0,'회원가입이 완료되었습니다. 환영합니다.', '등록완료', 0)
+        win32api.MessageBox(0, '회원가입이 완료되었습니다. 환영합니다.', '등록완료', 0)
         self.register_name.clear()
         self.register_id.clear()
         self.register_password.clear()
 
     def register_fail(self):
-        win32api.MessageBox(0,'ID가 중복되었습니다. 다른 아이디를 입력 해 주세요.', '중복알림', 48)
+        win32api.MessageBox(0, 'ID가 중복되었습니다. 다른 아이디를 입력 해 주세요.', '중복알림', 48)
 
     def quiz_request(self):
         # 버튼 객체 얻기
         btn = self.sender()
         self.quize_name = btn.text()
-        if self.quize_name== '서울/경기':
-            reply = QMessageBox.question(self,'메시지','서울/경기 지역 명산에 도전하시겠습니까?')
+        if self.quize_name == '서울/경기':
+            reply = QMessageBox.question(self, '메시지', '서울/경기 지역 명산에 도전하시겠습니까?')
             if reply == QMessageBox.Yes:
                 self.Seoul_quiz = []
                 self.Me = []
@@ -261,59 +252,58 @@ class StudentWindow(QMainWindow, form_class):
             else:
                 pass
 
-        elif self.quize_name== '강원도':
-            reply = QMessageBox.question(self,'메시지','강원 지역 명산에 도전하시겠습니까?')
+        elif self.quize_name == '강원도':
+            reply = QMessageBox.question(self, '메시지', '강원 지역 명산에 도전하시겠습니까?')
             if reply == QMessageBox.Yes:
                 self.Gangwon_quiz = []
             else:
                 pass
             # self.send_command('/quize_gangwon',self.quize_name)
-        elif self.quize_name== '충청북도':
-            reply = QMessageBox.question(self,'메시지','충청북도 지역 명산에 도전하시겠습니까?')
+        elif self.quize_name == '충청북도':
+            reply = QMessageBox.question(self, '메시지', '충청북도 지역 명산에 도전하시겠습니까?')
             if reply == QMessageBox.Yes:
-                self.Chungbuk_quiz = [] 
+                self.Chungbuk_quiz = []
             else:
                 pass
             # self.send_command('/quize_chungbuk',self.quize_name)
-        elif self.quize_name== '충청남도':
-            reply = QMessageBox.question(self,'메시지','충청남도 지역 명산에 도전하시겠습니까?')
+        elif self.quize_name == '충청남도':
+            reply = QMessageBox.question(self, '메시지', '충청남도 지역 명산에 도전하시겠습니까?')
             if reply == QMessageBox.Yes:
-                self.Chungnam_quiz = [] 
+                self.Chungnam_quiz = []
             else:
                 pass
-        elif self.quize_name== '경상북도':
-            reply = QMessageBox.question(self,'메시지','경상북도 지역 명산에 도전하시겠습니까?')
+        elif self.quize_name == '경상북도':
+            reply = QMessageBox.question(self, '메시지', '경상북도 지역 명산에 도전하시겠습니까?')
             if reply == QMessageBox.Yes:
-                self.Gyeongbuk_quiz = [] 
+                self.Gyeongbuk_quiz = []
             else:
                 pass
-        elif self.quize_name== '경상남도':
-            reply = QMessageBox.question(self,'메시지','경상남도 지역 명산에 도전하시겠습니까?')
+        elif self.quize_name == '경상남도':
+            reply = QMessageBox.question(self, '메시지', '경상남도 지역 명산에 도전하시겠습니까?')
             if reply == QMessageBox.Yes:
                 self.Gyeongnam_quiz = []
             else:
                 pass
-        elif self.quize_name== '전라북도':
-            reply = QMessageBox.question(self,'메시지','전라북도 지역 명산에 도전하시겠습니까?')
+        elif self.quize_name == '전라북도':
+            reply = QMessageBox.question(self, '메시지', '전라북도 지역 명산에 도전하시겠습니까?')
             if reply == QMessageBox.Yes:
                 self.Jeonbuk_quiz = []
             else:
                 pass
-        elif self.quize_name== '전라남도':
-            reply = QMessageBox.question(self,'메시지','전라남도 지역 명산에 도전하시겠습니까?')
+        elif self.quize_name == '전라남도':
+            reply = QMessageBox.question(self, '메시지', '전라남도 지역 명산에 도전하시겠습니까?')
             if reply == QMessageBox.Yes:
                 self.Jeonnam_quiz = []
             else:
                 pass
         else:
-            reply = QMessageBox.question(self,'메시지','제주 지역 명산에 도전하시겠습니까?')
+            reply = QMessageBox.question(self, '메시지', '제주 지역 명산에 도전하시겠습니까?')
             if reply == QMessageBox.Yes:
                 self.Jeju_quiz = []
             else:
                 pass
             # self.send_command('/quize_jeju',self.quize_name)
 
-            
         # 버튼 객체 얻어서 그 버튼이 어떤 도의 버튼인지 확인 후 서버에 데이터 요청해야함
 
     def send_command(self, command, content):
@@ -322,7 +312,7 @@ class StudentWindow(QMainWindow, form_class):
         print(f'보낸 메시지: {data} [{datetime.datetime.now()}]')
 
         self.sock.send(data.encode())
-    
+
     def register_server(self):
         self.r_name = self.register_name.text()
         self.r_id = self.register_id.text()
@@ -336,8 +326,7 @@ class StudentWindow(QMainWindow, form_class):
             ###받고  성공-1 실패-0 ###
 
         else:
-            QMessageBox.information(self,'알림', '모든 항목을 입력 해 주세요.')
-
+            QMessageBox.information(self, '알림', '모든 항목을 입력 해 주세요.')
 
     def login(self):
         self.id = self.student_id.text()
@@ -348,14 +337,15 @@ class StudentWindow(QMainWindow, form_class):
         # self.tabWidget.setCurrentIndex(2)
 
         else:
-            QMessageBox.information(self,'알림', '모든 항목을 입력 해 주세요.')
+            QMessageBox.information(self, '알림', '모든 항목을 입력 해 주세요.')
 
     def mainpage(self):
         self.tabWidget.setCurrentIndex(0)
 
     def sign(self):
         self.tabWidget.setCurrentIndex(1)
-        
+
+
 # class Client():
 
 #     def __init__(self, username, address, port, win):
@@ -375,7 +365,7 @@ class StudentWindow(QMainWindow, form_class):
 
 
 # def encodeMsg(msg):
-    
+
 #     message = str(msg).encode(FORMAT)
 #     msg_length = len(message)
 #     send_length = str(msg_length).encode(FORMAT)
