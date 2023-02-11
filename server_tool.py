@@ -30,54 +30,6 @@ def send_command(command, content, opponent_socket):
     opponent_socket.send(data.encode())
 
 
-def connection_lost(sock, socks):
-    print(f'Client {sock.getpeername()} Connection Lost')
-    sock.close()
-    socks.remove(sock)
-    return socks
-
-
-def turn_server_on(command_processor, server_socket, socks):
-    import datetime
-    import select
-    while True:
-        read_socket, dummy1, dummy2 = select.select(socks, [], [], 0)
-        for sock in read_socket:
-            if sock == server_socket:
-                client_socket, addr, socks = add_client_to_socket_list(sock, socks)
-
-            else:
-                try:
-                    data = sock.recv(8192).decode('utf-8')
-                    print(f'Received Data: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
-
-                    if data:
-                        try:
-                            message = eval(data)
-                            command_processor(message, sock)
-                            print(f'Received Message: {sock.getpeername()}: {message} [{datetime.datetime.now()}]')
-
-                        except TypeError:
-                            print('TypeError Occurred')
-
-                        except NameError:
-                            print('NameError Occurred')
-                            
-                        except:
-                            print('에러 발생')
-
-                    if not data:
-                        socks = connection_lost(sock, socks)
-                        continue
-
-                except ConnectionResetError:
-                    socks = connection_lost(sock, socks)
-                    continue
-                    
-                except:
-                    print('에러 발생')
-
-
 def null_to_zero(item_list):
     for item in item_list:
         for i in range(len(item)):

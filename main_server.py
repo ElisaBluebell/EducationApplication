@@ -1,11 +1,77 @@
 import server_tool as st
 
+login_student_index_socket = {}
+login_teacher_index_socket = {}
+
 
 class MainServer:
     def __init__(self):
         server_socket, socks = st.socket_initialize('10.10.21.121', 9000)
-        st.turn_server_on(self.command_processor, server_socket, socks)
+        self.turn_server_on(self.command_processor, server_socket, socks)
 
+    def turn_server_on(self, command_processor, server_socket, socks):
+        import datetime
+        import select
+        while True:
+            read_socket, dummy1, dummy2 = select.select(socks, [], [], 0)
+            for sock in read_socket:
+                if sock == server_socket:
+                    client_socket, addr, socks = st.add_client_to_socket_list(sock, socks)
+
+                else:
+                    try:
+                        data = sock.recv(8192).decode('utf-8')
+                        print(f'Received Data: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
+
+                        if data:
+                            try:
+                                message = eval(data)
+                                command_processor(message, sock)
+                                print(f'Received Message: {sock.getpeername()}: {message} [{datetime.datetime.now()}]')
+
+                            # except TypeError:
+                            #     print('TypeError Occurred')
+
+                            except NameError:
+                                print('NameError Occurred')
+
+                            # except:
+                            #     print('에러 발생')
+
+                        if not data:
+                            socks = self.connection_lost(sock, socks)
+                            continue
+
+                    except ConnectionResetError:
+                        socks = self.connection_lost(sock, socks)
+                        continue
+
+                    # except:
+                    #     print('에러 발생')
+
+    @staticmethod
+    def connection_lost(sock, socks):
+        print(f'Client {sock.getpeername()} Connection Lost')
+
+        for i in login_student_index_socket.keys():
+            if login_student_index_socket[i] == sock:
+                del login_student_index_socket[i]
+                break
+
+        if login_student_index_socket:
+            print('login_student: ', login_student_index_socket)
+
+        for i in login_teacher_index_socket.keys():
+            if login_teacher_index_socket[i] == sock:
+                del login_teacher_index_socket[i]
+                break
+
+        if login_teacher_index_socket:
+            print('login_teacher: ', login_teacher_index_socket)
+
+        sock.close()
+        socks.remove(sock)
+        return socks
 
     @staticmethod
     def get_useful_data(raw_data):
@@ -41,8 +107,8 @@ class MainServer:
         elif command == '/qna':
             self.send_whole_qna_data(content, client_sock)
 
-        # elif command == '/answer_send':
-        #     self.insert_qna_answer_to_database(content, client_sock)
+        elif command == '/answer_send':
+            self.insert_qna_answer_to_database(content, client_sock)
 
         elif command == '/student_score':
             self.student_score(client_sock)
@@ -62,8 +128,17 @@ class MainServer:
         elif command == '/save_learning_user':
             self.insert_score(content, client_sock)
 
+        elif command == '/request_login_member_list':
+            self.send_login_member_list(client_sock)
+
+        elif command == '/load_learning_user':
+            self.load_learning_user(client_sock)
+
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
+
+        else:
+            pass
 
     def check_registrable(self, regist_info, client_sock):
         user_class, user_name, user_id, user_password = regist_info
@@ -99,6 +174,8 @@ class MainServer:
                 quiz_table = st.get_whole_data('quiz')
                 user_data = st.get_whole_data_where('user_account', 'user_id', login_id)
                 login_data = [user_data, quiz_table]
+                login_student_index_socket[user_data[0][0]] = client_sock
+                print('login_student: ', login_student_index_socket)
                 st.send_command('/login_success', login_data, client_sock)
 
     @staticmethod
@@ -112,7 +189,10 @@ class MainServer:
                 st.send_command('/login_password_fail', '', client_sock)
 
             else:
+                user_data = st.get_whole_data_where('user_account', 'user_id', login_id)
                 login_name = st.get_single_item('user_name', 'user_account', 'user_id', login_id)
+                login_teacher_index_socket[user_data[0][0]] = client_sock
+                print('login_teacher: ', login_teacher_index_socket)
                 st.send_command('/login_success', login_name, client_sock)
 
     @staticmethod
@@ -140,22 +220,23 @@ class MainServer:
     def insert_score(answer, client_sock):
         for i in range(1, len(answer)):
             if answer[i][1] == 'O':
-                sql = f'UPDATE quiz SET correct={answer[i][2]}, solve_datetime={answer[i][3]} WHERE user_index={answer[0]} and quiz_index={answer[i][0]};'
+                sql = f'UPDATE score_board SET correct="{answer[i][2]}", solve_datetime="{answer[i][3]}" WHERE user_index={answer[0]} and quiz_index={answer[i][0]};'
+
             else:
-                sql = f'UPDATE quiz SET correct={answer[i][1]}, solve_datetime={answer[i][3]} WHERE user_index={answer[0]} and quiz_index={answer[i][0]};'
+                sql = f'UPDATE score_board SET correct="{answer[i][1]}", solve_datetime="{answer[i][3]}" WHERE user_index={answer[0]} and quiz_index={answer[i][0]};'
             st.execute_db(sql)
 
         st.send_command('/score_board_updated', '', client_sock)
 
-    # @staticmethod
-    # def insert_qna_answer_to_database(answer, client_sock):
-    #     qna_index = answer[1]
-    #     answer = answer[0]
-    #
-    #     sql = f'UPDATE qna SET answer="{answer}" WHERE qna_index={qna_index};'
-    #     st.execute_db(sql)
-    #
-    #     st.send_command('/answer_submitted', '', client_sock)
+    @staticmethod
+    def insert_qna_answer_to_database(answer, client_sock):
+        qna_index = answer[1]
+        answer = answer[0]
+
+        sql = f'UPDATE qna SET answer="{answer}" WHERE qna_index={qna_index};'
+        st.execute_db(sql)
+
+        st.send_command('/answer_submitted', '', client_sock)
 
     @staticmethod
     def student_score(client_sock):
@@ -254,10 +335,66 @@ class MainServer:
         location_quiz = st.execute_db(sql)
         st.send_command('/location_quiz', location_quiz, client_sock)
 
+    def send_login_member_list(self, client_sock):
+        user_list = []
+        for i in login_teacher_index_socket.keys():
+            if login_teacher_index_socket[i] == client_sock:
+                for j in login_student_index_socket.keys():
+                    user_list.append(j)
+                self.get_user_name(user_list, client_sock)
+
+        for i in login_student_index_socket.keys():
+            if login_student_index_socket[i] == client_sock:
+                for j in login_teacher_index_socket.keys():
+                    user_list.append(j)
+                self.get_user_name(user_list, client_sock)
+
+    def get_user_name(self, user_index_list, client_sock):
+        user_name_list = []
+        for i in range(len(user_index_list)):
+            sql = f'SELECT user_name FROM user_account WHERE user_index={user_index_list[i]}'
+            user_name_list.append(st.execute_db(sql)[0][0])
+        st.send_command('/get_user_name', user_name_list, client_sock)
+
+    def get_user_index(self, client_sock):
+        for i in login_student_index_socket.keys():
+            if login_student_index_socket[i] == client_sock:
+                return i
+
+    def load_learning_user(self, client_sock):
+        student = self.get_user_index(client_sock)
+
+        sql = f'SELECT a.quiz_index, b.area_name ' \
+              f'FROM score_board AS a ' \
+              f'INNER JOIN quiz AS b ' \
+              f'ON a.quiz_index=b.quiz_index ' \
+              f'WHERE a.solve_datetime is null ' \
+              f'AND a.user_index={student}'
+        learning_progress = st.execute_db(sql)
+
+        st.send_command('/learning_progress', learning_progress, client_sock)
+
+    # def check_requester_class(self, client_sock):
+
+    #
+    # def get_login_student_list(self, client_sock):
+    #     sql = 'SELECT user_index FROM user_account WHERE class="학생"'
+    #     student_list = st.execute_db(sql)
+    #     print(student_list)
+    #
+    #
+    # def get_login_teacher_list(self, client_sock):
+    #     sql = 'SELECT user_index FROM user_account WHERE class="교사"'
+    #     teacher_list = st.execute_db(sql)
+    #     print(teacher_list)
+
     def receive_chat_message(self, content):
         pass
 
     def student_chat_message(self, content, client_sock):
+        pass
+
+    def send_chat_message(self, content, client_sock):
         pass
 
 
