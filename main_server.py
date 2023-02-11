@@ -41,8 +41,8 @@ class MainServer:
         elif command == '/qna':
             self.send_whole_qna_data(content, client_sock)
 
-        elif command == '/answer_send':
-            self.insert_qna_answer_to_database(content, client_sock)
+        # elif command == '/answer_send':
+        #     self.insert_qna_answer_to_database(content, client_sock)
 
         elif command == '/student_score':
             self.student_score(client_sock)
@@ -147,15 +147,15 @@ class MainServer:
 
         st.send_command('/score_board_updated', '', client_sock)
 
-    @staticmethod
-    def insert_qna_answer_to_database(answer, client_sock):
-        qna_index = answer[1]
-        answer = answer[0]
-
-        sql = f'UPDATE qna SET answer="{answer}" WHERE qna_index={qna_index};'
-        st.execute_db(sql)
-
-        st.send_command('/answer_submitted', '', client_sock)
+    # @staticmethod
+    # def insert_qna_answer_to_database(answer, client_sock):
+    #     qna_index = answer[1]
+    #     answer = answer[0]
+    #
+    #     sql = f'UPDATE qna SET answer="{answer}" WHERE qna_index={qna_index};'
+    #     st.execute_db(sql)
+    #
+    #     st.send_command('/answer_submitted', '', client_sock)
 
     @staticmethod
     def student_score(client_sock):
