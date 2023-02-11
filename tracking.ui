@@ -419,7 +419,7 @@
     </widget>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
-      <string>문제</string>
+      <string>문제출제</string>
      </attribute>
      <widget class="QLabel" name="Map_label">
       <property name="geometry">
@@ -451,32 +451,6 @@
       </property>
       <property name="pixmap">
        <pixmap>../../Desktop/의명박6팀(230206~)/Background.png</pixmap>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton">
-      <property name="geometry">
-       <rect>
-        <x>400</x>
-        <y>470</y>
-        <width>151</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>600</width>
-        <height>600</height>
-       </size>
-      </property>
-      <property name="shortcut">
-       <string/>
       </property>
      </widget>
      <widget class="QPushButton" name="jeonbuk_btn">
@@ -540,29 +514,6 @@
       <property name="icon">
        <iconset>
         <normaloff>../../Desktop/의명박6팀(230206~)/경상남도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상남도.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>800</width>
-        <height>900</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="gyeongbuk_btn2">
-      <property name="geometry">
-       <rect>
-        <x>400</x>
-        <y>470</y>
-        <width>151</width>
-        <height>48</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -715,53 +666,20 @@
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="O_btn">
-      <property name="geometry">
-       <rect>
-        <x>700</x>
-        <y>610</y>
-        <width>81</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>O</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="X_btn">
-      <property name="geometry">
-       <rect>
-        <x>910</x>
-        <y>610</y>
-        <width>81</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>X</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="save_btn">
-      <property name="geometry">
-       <rect>
-        <x>860</x>
-        <y>700</y>
-        <width>161</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>문제 저장</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="quiz_label">
       <property name="geometry">
        <rect>
         <x>710</x>
-        <y>70</y>
+        <y>100</y>
         <width>300</width>
         <height>491</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>16</pointsize>
+       </font>
       </property>
       <property name="text">
        <string/>
@@ -772,21 +690,492 @@
      </widget>
      <zorder>background_label</zorder>
      <zorder>Map_label</zorder>
-     <zorder>pushButton</zorder>
      <zorder>jeonbuk_btn</zorder>
      <zorder>jeonnam_btn</zorder>
      <zorder>gyeongnam_btn</zorder>
-     <zorder>gyeongbuk_btn2</zorder>
      <zorder>gyeongbuk_btn</zorder>
      <zorder>chungnam_btn</zorder>
      <zorder>chungbuk_btn</zorder>
      <zorder>gyeonggi_btn</zorder>
      <zorder>gangwon_btn</zorder>
      <zorder>jeju_btn</zorder>
-     <zorder>O_btn</zorder>
-     <zorder>X_btn</zorder>
-     <zorder>save_btn</zorder>
      <zorder>quiz_label</zorder>
+    </widget>
+    <widget class="QWidget" name="tab_7">
+     <attribute name="title">
+      <string>문제추가</string>
+     </attribute>
+     <widget class="QPushButton" name="gangwon_btn_2">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>149</y>
+        <width>127</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/강원도.png</normaloff>../../Desktop/의명박6팀(230206~)/강원도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="gyeongbuk_btn2_2">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>470</y>
+        <width>151</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="jeonnam_btn_2">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>580</y>
+        <width>157</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/전라남도.png</normaloff>../../Desktop/의명박6팀(230206~)/전라남도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="jeonbuk_btn_2">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>470</y>
+        <width>157</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/전라북도.png</normaloff>../../Desktop/의명박6팀(230206~)/전라북도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="jeju_btn_2">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>750</y>
+        <width>128</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/제주도.png</normaloff>../../Desktop/의명박6팀(230206~)/제주도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="gyeongnam_btn_2">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>550</y>
+        <width>157</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/경상남도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상남도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="chungnam_btn_2">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>280</y>
+        <width>161</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/충청남도.png</normaloff>../../Desktop/의명박6팀(230206~)/충청남도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="gyeongbuk_btn_2">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>370</y>
+        <width>157</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Map_label_2">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>0</y>
+        <width>551</width>
+        <height>791</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../Desktop/의명박6팀(230206~)/100대명산지도.png</pixmap>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="chungbuk_addbtn">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>230</y>
+        <width>157</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::PreventContextMenu</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/충청북도.png</normaloff>../../Desktop/의명박6팀(230206~)/충청북도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="gyeonggi_addbtn">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>170</y>
+        <width>167</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/서울경기.png</normaloff>../../Desktop/의명박6팀(230206~)/서울경기.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="o_btn">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>450</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>O</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="x_btn">
+      <property name="geometry">
+       <rect>
+        <x>870</x>
+        <y>450</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="gangwon_addbtn">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>149</y>
+        <width>127</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/강원도.png</normaloff>../../Desktop/의명박6팀(230206~)/강원도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="jeonnam_addbtn">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>580</y>
+        <width>157</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/전라남도.png</normaloff>../../Desktop/의명박6팀(230206~)/전라남도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="jeonbuk_addbtn">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>470</y>
+        <width>157</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/전라북도.png</normaloff>../../Desktop/의명박6팀(230206~)/전라북도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="jeju_addbtn">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>750</y>
+        <width>128</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/제주도.png</normaloff>../../Desktop/의명박6팀(230206~)/제주도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="gyeongnam_addbtn">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>550</y>
+        <width>157</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/경상남도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상남도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="chungnam_addbtn">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>280</y>
+        <width>161</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/충청남도.png</normaloff>../../Desktop/의명박6팀(230206~)/충청남도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="gyeongbuk_addbtn">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>370</y>
+        <width>151</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</normaloff>../../Desktop/의명박6팀(230206~)/경상북도.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>800</width>
+        <height>900</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="quizadd_lineedit">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>390</y>
+        <width>321</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="update_label">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>340</y>
+        <width>231</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_6">
      <attribute name="title">
@@ -809,6 +1198,113 @@
       </property>
       <property name="scaledContents">
        <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="score_btn">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>40</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>학생 점수 불러오기</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="score_tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>170</y>
+        <width>521</width>
+        <height>331</height>
+       </rect>
+      </property>
+      <row>
+       <property name="text">
+        <string>강 원 도</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>서 울 / 경 기</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>충 청 남 도</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>충 청 북 도</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>경 상 남 도</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>경 상 북 도</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>전 라 남 도</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>전 라 북 도</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>제 주 도</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>총  합계</string>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>박의용</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>박규환</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>90</y>
+        <width>131</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>18</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>성 적 표</string>
       </property>
      </widget>
     </widget>
@@ -847,7 +1343,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>14</pointsize>
+        <pointsize>18</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1086,7 +1582,7 @@
      <widget class="QLabel" name="label_12">
       <property name="geometry">
        <rect>
-        <x>480</x>
+        <x>460</x>
         <y>60</y>
         <width>131</width>
         <height>51</height>
@@ -1095,7 +1591,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>14</pointsize>
+        <pointsize>18</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
