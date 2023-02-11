@@ -11,7 +11,7 @@ import datetime
 from socket import *
 import threading
 
-# ui파일 연결 
+# ui파일 연결
 form_class = uic.loadUiType("tracking.ui")[0]
 
 
