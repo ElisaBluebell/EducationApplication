@@ -6,6 +6,7 @@ class MainServer:
         server_socket, socks = st.socket_initialize('10.10.21.121', 9000)
         st.turn_server_on(self.command_processor, server_socket, socks)
 
+
     @staticmethod
     def get_useful_data(raw_data):
         mntnm = []
@@ -54,6 +55,12 @@ class MainServer:
 
         elif command == '/temp_send_chat':
             self.send_chat_message(content, client_sock)
+
+        elif command == '/student_chat':
+            self.student_chat_message(content, client_sock)
+
+        elif command == '/save_learning_user':
+            self.insert_score(content, client_sock)
 
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
@@ -131,8 +138,14 @@ class MainServer:
 
     @staticmethod
     def insert_score(answer, client_sock):
-        sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]};'
-        correct_answer = st.execute_db(sql)[0][0]
+        for i in range(1, len(answer)):
+            if answer[i][1] == 'O':
+                sql = f'UPDATE quiz SET correct={answer[i][2]}, solve_datetime={answer[i][3]} WHERE user_index={answer[0]} and quiz_index={answer[i][0]};'
+            else:
+                sql = f'UPDATE quiz SET correct={answer[i][1]}, solve_datetime={answer[i][3]} WHERE user_index={answer[0]} and quiz_index={answer[i][0]};'
+            st.execute_db(sql)
+
+        st.send_command('/score_board_updated', '', client_sock)
 
     @staticmethod
     def insert_qna_answer_to_database(answer, client_sock):
@@ -163,15 +176,20 @@ class MainServer:
             SELECT SUM(a.correct), 
             SUM(a.solve_datetime), 
             b.area_name 
-            FROM ss AS a 
+            FROM score_board AS a 
             INNER JOIN quiz AS b 
             ON a.quiz_index=b.quiz_index 
             WHERE a.user_index={i} 
             GROUP BY b.area_name
             ;'''
             user_score = st.execute_db(sql)
+            user_score = list(user_score)
+            for j in range(len(user_score)):
+                user_score[j] = list(user_score[j])
 
+            st.null_to_zero(user_score)
             user_data = [user_name, user_score]
+
             user_score_data.append(user_data)
 
         st.send_command('/student_score', user_score_data, client_sock)
@@ -239,7 +257,7 @@ class MainServer:
     def receive_chat_message(self, content):
         pass
 
-    def send_chat_message(self, content, client_sock):
+    def student_chat_message(self, content, client_sock):
         pass
 
 

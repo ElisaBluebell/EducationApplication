@@ -63,8 +63,8 @@ def turn_server_on(command_processor, server_socket, socks):
                         except NameError:
                             print('NameError Occurred')
                             
-                        # except:
-                        #     print('에러 발생')
+                        except:
+                            print('에러 발생')
 
                     if not data:
                         socks = connection_lost(sock, socks)
@@ -74,8 +74,8 @@ def turn_server_on(command_processor, server_socket, socks):
                     socks = connection_lost(sock, socks)
                     continue
                     
-                # except:
-                #     print('에러 발생')
+                except:
+                    print('에러 발생')
 
 
 def null_to_zero(item_list):
