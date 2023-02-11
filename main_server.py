@@ -137,6 +137,9 @@ class MainServer:
         elif command == '/request_past_chat_data':
             self.get_past_chat(content, client_sock)
 
+        elif command == '/new_chat':
+            self.receive_chat_message(content, client_sock)
+
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
 
@@ -378,9 +381,19 @@ class MainServer:
         st.send_command('/learning_progress', learning_progress, client_sock)
 
     def get_past_chat(self, user_name_list, client_sock):
-        sql = f'SELECT content FROM chat ' \
-              f'WHERE sender_index in (SELECT user_index FROM user_account WHERE user_name="{user_name_list[0]}") ' \
-              f'AND receiver_index in (SELECT user_index FROM user_account WHERE user_name="{user_name_list[1]}")'
+        sql = f'''SELECT content FROM chat 
+        WHERE sender_index in 
+        (
+        SELECT user_index FROM user_account 
+        WHERE user_name="{user_name_list[0]}" 
+        OR user_name="{user_name_list[1]}"
+        ) 
+        AND receiver_index in 
+        (
+        SELECT user_index FROM user_account 
+        WHERE user_name="{user_name_list[1]}" 
+        OR user_name="{user_name_list[0]}"
+        )'''
         past_chat = st.execute_db(sql)
 
         st.send_command('get_past_chat', past_chat, client_sock)
@@ -397,11 +410,18 @@ class MainServer:
     #     teacher_list = st.execute_db(sql)
     #     print(teacher_list)
 
-    def receive_chat_message(self, content):
-        pass
+    def receive_chat_message(self, content, client_sock):
+        sender, receiver, text = content
+        sql = f'SELECT user_index FROM user_account WHERE user_name="{sender}"'
+        sender = st.execute_db(sql)[0][0]
 
-    def student_chat_message(self, content, client_sock):
-        pass
+        sql = f'SELECT user_index FROM user_account WHERE user_name="{receiver}"'
+        receiver = st.execute_db(sql)[0][0]
+
+        sql = f'INSERT INTO chat VALUES({sender}, {receiver}, "{text}")'
+        st.execute_db(sql)
+
+        self.send_chat_message(content, client_sock)
 
     def send_chat_message(self, content, client_sock):
         pass

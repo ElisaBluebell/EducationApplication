@@ -13,6 +13,7 @@ class ChatClient(QWidget):
         super().__init__()
         self.client_socket = socket(AF_INET, SOCK_STREAM)
         self.set_socket()
+        # 채팅 가능 여부 판별용 스위치
         self.chat_able = 0
         cThread = threading.Thread(target=self.receive_message, args=(self.client_socket,), daemon=True)
         cThread.start()
@@ -58,6 +59,7 @@ class ChatClient(QWidget):
             elif command == '/reseive_chat':
                 self.receive_chat()
 
+            # 현재 접속중인 유저명 저장, 학생 로그인의 경우 user_name 재설정 필요
             elif command == '/login_success':
                 self.user_name = content
 
@@ -89,34 +91,52 @@ class ChatClient(QWidget):
 
         st.send_command('/request_login_member_list', '', self.client_socket)
 
+    # 콤보박스 유저 목록 최신화
     def renew_user_list(self, content):
+        # 유저 목록 초기화
         self.user_select.clear()
         connectable_user_list = content
 
+        # 채팅 가능 유저가 있을 경우
         if connectable_user_list:
+            # 채팅 가능 상태로 돌림
             self.chat_able = 1
+            # 유저명을 콤보박스에 삽입
             for connectable_user in connectable_user_list:
                 self.user_select.addItem(connectable_user)
 
         else:
+            # 콤보박스에 상담 불가능을 표시하는 아이템 추가
             self.user_select.addItem('지금은 상담이 불가능합니다.')
+            # 상담 불가 상태로 돌림
             self.chat_able = 0
 
+    # 상담 가능 상태일 시 채팅 윈도우를 초기화하고 지난 채팅 불러오기
     def request_past_chat_data(self):
         self.chat_window.clear()
         # if self.chat_able == 1:
+        # content = [현재 접속중인 유저명, 콤보박스에서 선택한 유저명]
         st.send_command('/request_past_chat_data', [self.user_name, self.user_select.currentText()], self.client_socket)
         # print('유저명: ', self.user_select.currentText())
 
+    # 지난 채팅 출력 기능
     def print_past_chat(self, past_chat):
+        # 서버로부터 받아온 지난 채팅 리스트의 길이만큼 반복해서 출력
         for i in range(len(past_chat)):
             self.chat_window.addItem(past_chat[i])
 
-        time.sleep(0.1)
+        # 이후 스크롤 바닥으로
+        time.sleep(0.01)
         self.chat_window.scrollToBottom()
 
+    # 채팅 전송 기능
     def send_chat(self):
+        chat_to_send = self.input_chat.text()
+        # 채팅창 초기화
         self.input_chat.clear()
+
+        chat_data = [self.user_name, self.user_select.currentText(), chat_to_send]
+        st.send_command('/new_chat', chat_data, self.client_socket)
 
     def receive_chat(self):
         pass
