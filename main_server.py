@@ -116,14 +116,8 @@ class MainServer:
         elif command == '/update_send':
             self.add_quiz(content, client_sock)
 
-        elif command == '/temp_recieve_chat':
-            self.receive_chat_message(content)
-
-        elif command == '/temp_send_chat':
-            self.send_chat_message(content, client_sock)
-
-        elif command == '/student_chat':
-            self.student_chat_message(content, client_sock)
+        elif command == '/new_chat':
+            self.receive_chat_message(content, client_sock)
 
         elif command == '/save_learning_user':
             self.insert_score(content, client_sock)
@@ -226,10 +220,18 @@ class MainServer:
     def insert_score(answer, client_sock):
         for i in range(1, len(answer)):
             if answer[i][1] == 'O':
-                sql = f'UPDATE score_board SET correct="{answer[i][2]}", solve_datetime="{answer[i][3]}" WHERE user_index={answer[0]} and quiz_index={answer[i][0]};'
+                sql = f'''UPDATE score_board 
+                SET correct="{answer[i][2]}", 
+                solve_datetime="{answer[i][3]}" 
+                WHERE user_index={answer[0]} 
+                AND quiz_index={answer[i][0]};'''
 
             else:
-                sql = f'UPDATE score_board SET correct="{answer[i][1]}", solve_datetime="{answer[i][3]}" WHERE user_index={answer[0]} and quiz_index={answer[i][0]};'
+                sql = f'''UPDATE score_board 
+                SET correct="{answer[i][1]}", 
+                solve_datetime="{answer[i][3]}" 
+                WHERE user_index={answer[0]} 
+                AND quiz_index={answer[i][0]};'''
             st.execute_db(sql)
 
         st.send_command('/score_board_updated', '', client_sock)
@@ -355,14 +357,16 @@ class MainServer:
                     user_list.append(j)
                 self.get_user_name(user_list, client_sock)
 
-    def get_user_name(self, user_index_list, client_sock):
+    @staticmethod
+    def get_user_name(user_index_list, client_sock):
         user_name_list = []
         for i in range(len(user_index_list)):
             sql = f'SELECT user_name FROM user_account WHERE user_index={user_index_list[i]}'
             user_name_list.append(st.execute_db(sql)[0][0])
         st.send_command('/get_user_name', user_name_list, client_sock)
 
-    def get_user_index(self, client_sock):
+    @staticmethod
+    def get_user_index(client_sock):
         for i in login_student_index_socket.keys():
             if login_student_index_socket[i] == client_sock:
                 return i
@@ -376,11 +380,12 @@ class MainServer:
               f'ON a.quiz_index=b.quiz_index ' \
               f'WHERE a.solve_datetime is null ' \
               f'AND a.user_index={student}'
-        learning_progress = st.execute_db(sql)
 
+        learning_progress = st.execute_db(sql)
         st.send_command('/learning_progress', learning_progress, client_sock)
 
-    def get_past_chat(self, user_name_list, client_sock):
+    @staticmethod
+    def get_past_chat(user_name_list, client_sock):
         sql = f'''SELECT content FROM chat 
         WHERE sender_index in 
         (
@@ -394,8 +399,8 @@ class MainServer:
         WHERE user_name="{user_name_list[1]}" 
         OR user_name="{user_name_list[0]}"
         )'''
-        past_chat = st.execute_db(sql)
 
+        past_chat = st.execute_db(sql)
         st.send_command('get_past_chat', past_chat, client_sock)
 
     #
@@ -411,15 +416,18 @@ class MainServer:
     #     print(teacher_list)
 
     def receive_chat_message(self, content, client_sock):
-        sender, receiver, text = content
-        sql = f'SELECT user_index FROM user_account WHERE user_name="{sender}"'
-        sender = st.execute_db(sql)[0][0]
+        sender_name, receiver_name, text = content
+        sql = f'SELECT user_index FROM user_account WHERE user_name="{sender_name}"'
+        sender_index = st.execute_db(sql)[0][0]
 
-        sql = f'SELECT user_index FROM user_account WHERE user_name="{receiver}"'
-        receiver = st.execute_db(sql)[0][0]
+        sql = f'SELECT user_index FROM user_account WHERE user_name="{receiver_name}"'
+        receiver_index = st.execute_db(sql)[0][0]
 
-        sql = f'INSERT INTO chat VALUES({sender}, {receiver}, "{text}")'
+        sql = f'INSERT INTO chat VALUES({sender_index}, {receiver_index}, "{text}")'
         st.execute_db(sql)
+
+        content.append(sender_index)
+        content.append(receiver_index)
 
         self.send_chat_message(content, client_sock)
 
