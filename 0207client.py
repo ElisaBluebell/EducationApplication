@@ -239,7 +239,7 @@ class WindowClass(QMainWindow, form_class):
                 self.update_label.setText("문제 업데이트 완료")
             elif command == '/student_score':
                 for i in range(len(content)):
-                    self.score_tableWidget.setItem(i, 0, QTableWidgetItem(str(int(content[[0][1][0][0]])))) # 행열 QTableWidgetItem(str(content[0][1][8][0]
+                    self.score_tableWidget.setItem(i, 0, QTableWidgetItem(str(content[0][1][0][0]))) # 행열 QTableWidgetItem(str(content[0][1][8][0]
                     # self.score_tableWidget.setItem(i, 0, QTableWidgetItem(str(content[0][2])))
 
                     # send = '/answer_send', [self.answer, content[0]]
