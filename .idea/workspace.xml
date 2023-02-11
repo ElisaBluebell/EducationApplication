@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="230210 ElisaBluebell">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="230211 ElisaBluebell">
       <change beforePath="$PROJECT_DIR$/server_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_tool.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,10 +153,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main_server (1)" />
-        <item itemvalue="Python.server_tool" />
-        <item itemvalue="Python.chat_client" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.student" />
+        <item itemvalue="Python.server_tool" />
+        <item itemvalue="Python.chat_client" />
       </list>
     </recent_temporary>
   </component>
