@@ -24,10 +24,10 @@ def add_client_to_socket_list(sock, socket_list):
     return client_socket, addr, socket_list
 
 
-def send_command(command, content, s):
+def send_command(command, content, opponent_socket):
     print(f'Server Message: {command}, {content} [{datetime.datetime.now()}]')
     data = json.dumps([command, content])
-    s.send(data.encode())
+    opponent_socket.send(data.encode())
 
 
 def connection_lost(sock, socks):
@@ -62,6 +62,9 @@ def turn_server_on(command_processor, server_socket, socks):
 
                         except NameError:
                             print('NameError Occurred')
+                            
+                        except:
+                            print('에러 발생')
 
                     if not data:
                         socks = connection_lost(sock, socks)
@@ -70,6 +73,9 @@ def turn_server_on(command_processor, server_socket, socks):
                 except ConnectionResetError:
                     socks = connection_lost(sock, socks)
                     continue
+                    
+                except:
+                    print('에러 발생')
 
 
 def null_to_zero(item_list):
@@ -77,22 +83,19 @@ def null_to_zero(item_list):
         for i in range(len(item)):
             if item[i] is None:
                 item[i] = 0
-            if type(item[i]) == str:
-                item[i] = item[i].replace("\'", """"\\'""")
-                item[i] = item[i].replace('\"', '''\\"''')
 
 
-def check_if_exist(thing_need_check, table, column):
+def check_if_item_exist(item, table, column):
     sql = f'SELECT {column} FROM {table}'
     db_check_list = execute_db(sql)
     for i in range(len(db_check_list)):
-        if thing_need_check == db_check_list[i][0]:
+        if item == db_check_list[i][0]:
             return 1
     return 0
 
 
-def get_single_item(key):
-    sql = f'SELECT user_name FROM user_account WHERE user_id="{key}"'
+def get_single_item(item_column, table, key_column, key):
+    sql = f'SELECT {item_column} FROM {table} WHERE {key_column}="{key}"'
     return execute_db(sql)[0][0]
 
 
