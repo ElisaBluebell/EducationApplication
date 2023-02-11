@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="230211 ElisaBluebell">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +44,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Kiot/Desktop/JohnKParkProjects/EducationApplication&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.main_server (1)">
+  <component name="RunManager" selected="Python.test">
     <configuration name="chat_client (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EducationApplication" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,8 +152,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main_server (1)" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.main_server (1)" />
         <item itemvalue="Python.chat_client" />
         <item itemvalue="Python.chat_client (1)" />
         <item itemvalue="Python.server_tool" />
@@ -169,13 +168,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1675646366145</updated>
-    </task>
-    <task id="LOCAL-00007" summary="230206 ElisaBluebell">
-      <created>1675682043338</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1675682043338</updated>
     </task>
     <task id="LOCAL-00008" summary="230206 ElisaBluebell">
       <created>1675685660209</created>
@@ -513,7 +505,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676097014632</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="230211 ElisaBluebell">
+      <created>1676098892012</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1676098892012</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
