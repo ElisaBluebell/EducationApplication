@@ -3,21 +3,20 @@ import threading
 import server_tool as st
 from socket import *
 
-from PyQt5.QtWidgets import QWidget, QApplication, QTableWidgetItem, QHeaderView, QListWidget, QLineEdit, QComboBox, \
-    QPushButton
+from PyQt5.QtWidgets import QWidget, QApplication,QListWidget, QLineEdit, QComboBox, QPushButton
 
 
 class ChatClient(QWidget):
     def __init__(self):
         super().__init__()
         self.client_socket = socket(AF_INET, SOCK_STREAM)
-
         self.set_socket()
-        self.login_process()
-        self.set_gui()
-
+        self.chat_able = 0
         cThread = threading.Thread(target=self.receive_message, args=(self.client_socket,), daemon=True)
         cThread.start()
+
+        self.login_process()
+        self.set_gui()
 
     def set_socket(self):
         ip = '10.10.21.121'  # 컴퓨터 ip
@@ -27,13 +26,12 @@ class ChatClient(QWidget):
     def set_gui(self):
         self.setFixedHeight(800)
         self.setFixedWidth(600)
-        self.show()
         self.chat_client()
+        self.show()
 
     def login_process(self):
         login_data = ['ElisaBluebell', '1234']
         st.send_command('/login_teacher', login_data, self.client_socket)
-        # pass
 
     def receive_message(self, so):
         while True:
@@ -58,15 +56,22 @@ class ChatClient(QWidget):
             elif command == '/reseive_chat':
                 self.receive_chat()
 
+            elif command == '/login_success':
+                self.user_name = content
+
+            elif command == '/get_user_name':
+                self.renew_user_list(content)
+
+            elif command == '/get_past_chat':
+                self.print_past_chat(content)
+
             else:
                 pass
 
     def chat_client(self):
-        st.send_command('/request_login_member_list', '', self.client_socket)
-
-        self.member_select = QComboBox(self)
-        self.member_select.setGeometry(20, 20, 160, 20)
-        self.show_chat_opponent_list()
+        self.user_select = QComboBox(self)
+        self.user_select.setGeometry(20, 20, 200, 20)
+        self.user_select.currentTextChanged.connect(self.request_past_chat_data)
 
         self.chat_window = QListWidget(self)
         self.chat_window.setGeometry(20, 120, 560, 560)
@@ -80,12 +85,28 @@ class ChatClient(QWidget):
         self.send.setText('전송')
         self.send.clicked.connect(self.send_chat)
 
-    def show_chat_opponent_list(self):
-        pass
+        st.send_command('/request_login_member_list', '', self.client_socket)
 
     def renew_user_list(self, content):
-        self.login_user = {}
-        # self.login_user.
+        self.user_select.clear()
+        connectable_user_list = content
+
+        if connectable_user_list:
+            self.chat_able = 1
+            for connectable_user in connectable_user_list:
+                self.user_select.addItem(connectable_user)
+
+        else:
+            self.user_select.addItem('지금은 상담이 불가능합니다.')
+            self.chat_able = 0
+
+    def request_past_chat_data(self):
+        # if self.chat_able == 1:
+        st.send_command('/request_past_chat_data', [self.user_name, self.user_select.currentText()], self.client_socket)
+        # print('유저명: ', self.user_select.currentText())
+
+    def print_past_chat(self):
+        pass
 
     def send_chat(self):
         self.input_chat.clear()

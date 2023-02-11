@@ -134,6 +134,9 @@ class MainServer:
         elif command == '/load_learning_user':
             self.load_learning_user(client_sock)
 
+        elif command == '/request_past_chat_data':
+            self.get_past_chat(content, client_sock)
+
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
 
@@ -374,7 +377,13 @@ class MainServer:
 
         st.send_command('/learning_progress', learning_progress, client_sock)
 
-    # def check_requester_class(self, client_sock):
+    def get_past_chat(self, user_name_list, client_sock):
+        sql = f'SELECT content FROM chat ' \
+              f'WHERE sender_index in (SELECT user_index FROM user_account WHERE user_name="{user_name_list[0]}") ' \
+              f'AND receiver_index in (SELECT user_index FROM user_account WHERE user_name="{user_name_list[1]}")'
+        past_chat = st.execute_db(sql)
+
+        st.send_command('get_past_chat', past_chat, client_sock)
 
     #
     # def get_login_student_list(self, client_sock):
