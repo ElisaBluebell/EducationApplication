@@ -154,11 +154,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.chat_client (1)" />
-        <item itemvalue="Python.main_server (1)" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.chat_client" />
         <item itemvalue="Python.server_tool" />
+        <item itemvalue="Python.main_server (1)" />
+        <item itemvalue="Python.chat_client (1)" />
+        <item itemvalue="Python.chat_client" />
       </list>
     </recent_temporary>
   </component>
