@@ -117,7 +117,8 @@ class MainServer:
             self.add_quiz(content, client_sock)
 
         elif command == '/new_chat':
-            self.receive_chat_message(content, client_sock)
+            self.receive_chat_message(content)
+            self.send_chat_message(content)
 
         elif command == '/save_learning_user':
             self.insert_score(content, client_sock)
@@ -130,9 +131,6 @@ class MainServer:
 
         elif command == '/request_past_chat_data':
             self.get_past_chat(content, client_sock)
-
-        elif command == '/new_chat':
-            self.receive_chat_message(content, client_sock)
 
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
@@ -365,14 +363,8 @@ class MainServer:
             user_name_list.append(st.execute_db(sql)[0][0])
         st.send_command('/get_user_name', user_name_list, client_sock)
 
-    @staticmethod
-    def get_user_index(client_sock):
-        for i in login_student_index_socket.keys():
-            if login_student_index_socket[i] == client_sock:
-                return i
-
     def load_learning_user(self, client_sock):
-        student = self.get_user_index(client_sock)
+        student = self.get_student_index(client_sock)
 
         sql = f'SELECT a.quiz_index, b.area_name ' \
               f'FROM score_board AS a ' \
@@ -385,8 +377,14 @@ class MainServer:
         st.send_command('/learning_progress', learning_progress, client_sock)
 
     @staticmethod
+    def get_student_index(client_sock):
+        for i in login_student_index_socket.keys():
+            if login_student_index_socket[i] == client_sock:
+                return i
+
+    @staticmethod
     def get_past_chat(user_name_list, client_sock):
-        sql = f'''SELECT content FROM chat 
+        sql = f'''SELECT DISTINCT content FROM chat 
         WHERE sender_index in 
         (
         SELECT user_index FROM user_account 
@@ -401,7 +399,7 @@ class MainServer:
         )'''
 
         past_chat = st.execute_db(sql)
-        st.send_command('get_past_chat', past_chat, client_sock)
+        st.send_command('/get_past_chat', past_chat, client_sock)
 
     #
     # def get_login_student_list(self, client_sock):
@@ -415,25 +413,45 @@ class MainServer:
     #     teacher_list = st.execute_db(sql)
     #     print(teacher_list)
 
-    def receive_chat_message(self, content, client_sock):
+    def receive_chat_message(self, content):
         sender_name, receiver_name, text = content
-        sql = f'SELECT user_index FROM user_account WHERE user_name="{sender_name}"'
-        sender_index = st.execute_db(sql)[0][0]
+        sender_index = self.get_user_index_by_name(sender_name)[0][0]
+        receiver_index = self.get_user_index_by_name(receiver_name)[0][0]
 
-        sql = f'SELECT user_index FROM user_account WHERE user_name="{receiver_name}"'
-        receiver_index = st.execute_db(sql)[0][0]
-
-        sql = f'INSERT INTO chat VALUES({sender_index}, {receiver_index}, "{text}")'
+        sql = f'INSERT INTO chat VALUES({sender_index}, {receiver_index}, "{sender_name}: {text}")'
         st.execute_db(sql)
 
-        content.append(sender_index)
-        content.append(receiver_index)
+    def get_user_index_by_name(self, name):
+        sql = f'SELECT user_index FROM user_account WHERE user_name="{name}"'
+        return st.execute_db(sql)
 
-        self.send_chat_message(content, client_sock)
+    def send_chat_message(self, content):
+        sender_name, receiver_name, text = content
+        sender_index = self.get_user_index_by_name(sender_name)[0][0]
+        receiver_index = self.get_user_index_by_name(receiver_name)[0][0]
 
-    def send_chat_message(self, content, client_sock):
-        pass
+        print('sender_index: ', sender_index)
+        sender_sock = self.get_client_socket_by_index(sender_index)
+        receiver_sock = self.get_client_socket_by_index(receiver_index)
 
+        chat_content = f'{sender_name}: {text}'
+
+        if sender_sock != 0:
+            st.send_command('/new_chat', chat_content, sender_sock)
+        if receiver_sock != 0:
+            st.send_command('/new_chat', chat_content, receiver_sock)
+
+    @staticmethod
+    def get_client_socket_by_index(user_index):
+        print('user_index: ', user_index)
+        print('student_socket: ', login_student_index_socket)
+        if user_index in login_student_index_socket.keys():
+            return login_student_index_socket[user_index]
+
+        elif user_index in login_teacher_index_socket.keys():
+            return login_teacher_index_socket[user_index]
+        else:
+            return 0
 
 if __name__ == "__main__":
     main_server = MainServer

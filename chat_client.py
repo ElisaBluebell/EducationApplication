@@ -56,9 +56,6 @@ class ChatClient(QWidget):
             elif command == '/login_user_list':
                 self.renew_user_list(content)
 
-            elif command == '/reseive_chat':
-                self.receive_chat()
-
             # 현재 접속중인 유저명 저장, 학생 로그인의 경우 user_name 재설정 필요
             elif command == '/login_success':
                 self.user_name = content
@@ -68,6 +65,9 @@ class ChatClient(QWidget):
 
             elif command == '/get_past_chat':
                 self.print_past_chat(content)
+
+            elif command == '/new_chat':
+                self.receive_chat(content)
 
             else:
                 pass
@@ -122,8 +122,9 @@ class ChatClient(QWidget):
     # 지난 채팅 출력 기능
     def print_past_chat(self, past_chat):
         # 서버로부터 받아온 지난 채팅 리스트의 길이만큼 반복해서 출력
-        for i in range(len(past_chat)):
-            self.chat_window.addItem(past_chat[i])
+        if past_chat:
+            for i in range(len(past_chat)):
+                self.chat_window.addItem(past_chat[i][0])
 
         # 이후 스크롤 바닥으로
         time.sleep(0.01)
@@ -131,15 +132,16 @@ class ChatClient(QWidget):
 
     # 채팅 전송 기능
     def send_chat(self):
-        chat_to_send = self.input_chat.text()
-        # 채팅창 초기화
-        self.input_chat.clear()
+        if self.chat_able == 1:
+            chat_to_send = self.input_chat.text()
+            # 채팅창 초기화
+            self.input_chat.clear()
 
-        chat_data = [self.user_name, self.user_select.currentText(), chat_to_send]
-        st.send_command('/new_chat', chat_data, self.client_socket)
+            chat_data = [self.user_name, self.user_select.currentText(), chat_to_send]
+            st.send_command('/new_chat', chat_data, self.client_socket)
 
-    def receive_chat(self):
-        pass
+    def receive_chat(self, content):
+        self.chat_window.addItem(content)
 
 
 if __name__ == '__main__':
