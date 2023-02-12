@@ -98,10 +98,9 @@ class ChatClient(QWidget):
         self.send_command('/request_login_member_list', '', self.client_socket)
 
     # 콤보박스 유저 목록 최신화
-    def renew_user_list(self, content):
+    def renew_user_list(self, connectable_user_list):
         # 유저 목록 초기화
         self.user_select.clear()
-        connectable_user_list = content
 
         # 채팅 가능 유저가 있을 경우
         if connectable_user_list:
@@ -120,10 +119,9 @@ class ChatClient(QWidget):
     # 상담 가능 상태일 시 채팅 윈도우를 초기화하고 지난 채팅 불러오기
     def request_past_chat_data(self):
         self.chat_window.clear()
-        # if self.chat_able == 1:
-        # content = [현재 접속중인 유저명, 콤보박스에서 선택한 유저명]
-        self.send_command('/request_past_chat_data', [self.user_name, self.user_select.currentText()], self.client_socket)
-        # print('유저명: ', self.user_select.currentText())
+        if self.chat_able == 1:
+            self.send_command('/request_past_chat_data',
+                              [self.user_name, self.user_select.currentText()], self.client_socket)
 
     # 지난 채팅 출력 기능
     def print_past_chat(self, past_chat):
