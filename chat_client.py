@@ -1,278 +1,154 @@
-# GUI 채팅 클라이언트
+import datetime
 import json
-from socket import *
 import sys
-
-import pymysql
-from PyQt5.QtWidgets import *
-from PyQt5 import uic, QtCore, QtGui
 import threading
+import time
 
-form_class = uic.loadUiType("chat11.ui")[0]
+from socket import *
 
-class WindowClass(QMainWindow, form_class):
+from PyQt5.QtWidgets import QWidget, QApplication,QListWidget, QLineEdit, QComboBox, QPushButton
 
-    user = None # (이름, 번호, 비밀번호) 튜플
 
+class ChatClient(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)
-        self.move(600,100)
-        self.initialize_socket()
-
-        self.send_btn.clicked.connect(self.send_chat) #ui메시지전송버튼
-        self.stackedWidget.setCurrentIndex(0) #스택위젯 0p 고정
-        self.acount_tabWidget.setCurrentIndex(0) # 로그인/가입 탭위젯 0
-
-        self.chat_open_btn.clicked.connect(self.login) # 로그인
-        self.join_btn.clicked.connect(self.create_acount) # 회원가입
-
-        self.chat_add_btn.clicked.connect(self.create_chatroom) #채팅방 생성 버튼
-
-        # lineEdit 입력 제한
-        phone_re = QtCore.QRegExp("[0-9]{10,11}") # 휴대폰 번호
-        self.phone_lineEdit.setValidator(QtGui.QRegExpValidator(phone_re))
-        self.user_phone_lineEdit.setValidator(QtGui.QRegExpValidator(phone_re))
-
-        pw_re = QtCore.QRegExp("[a-zA-Z0-9]{5,24}") # 비밀번호
-        self.user_pass_lineEdit.setValidator(QtGui.QRegExpValidator(pw_re))
-        self.pass_lineEdit.setValidator(QtGui.QRegExpValidator(pw_re))
-
-
-    def login(self): # 1p 들어가기 버튼 클릭했을때 : 로그인
-        print('button click')
-        # DB 조회에 필요한 데이터를 GUI에서 읽어온다.
-        phone = self.user_phone_lineEdit.text()
-        password = self.user_pass_lineEdit.text()
-
-        if phone == '' or password == '':
-            self.login_label.setText('휴대폰 번호와 비밀번호를 입력해주세요.')
-            return
-
-        # 서버에 넘기기 위한 딕셔너리를 만든다.
-        login = {'phone':phone, 'password':password}
-        self.send_data(login, 'log')
-
-
-    def create_acount(self):
-        print('회원가입')
-        new_user = (self.name_lineEdit.text(), self.phone_lineEdit.text(), self.pass_lineEdit.text())
-        if '' not in new_user:
-            print('가입 시도: ', new_user[0])
-            acount = {'phone':new_user[1]}
-            self.send_data(acount, 'acc')
-
-            # with self.conn_fetch() as cur:
-            #     sql = f"SELECT user_phone FROM users WHERE user_phone = '{new_user[1]}'"
-            #     cur.execute(sql)
-            #     acount = cur.fetchone()
-
-            # new_acount = {}
-            # for text in new_user:
-            #     new_acount[str(text)] = text
-            # print(new_acount)
-            # self.send_data(new_acount, 'acc')
-
-
-        #     if acount: # 휴대폰 번호가 이미 존재한다면
-        #         print('이미 존재하는 계정')
-        #         self.join_label.setText('이미 사용중인 휴대폰 번호입니다.')
-        #     else: # 휴대폰 번호가 존재하지 않는다면
-        #         msg = f'이름: {new_user[0]}\n휴대폰 번호: {new_user[1]}\n비밀번호: {new_user[2]}\n가입하시겠습니까?'
-        #         reply = QMessageBox.question(self, '회원가입', msg,
-        #                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-        #
-        #         if reply == QMessageBox.Yes:
-        #             print('가입 완료')
-        #             with self.conn_commit() as con:
-        #                 with con.cursor() as cur:
-        #                     sql = 'INSERT INTO users(user_name, user_phone, user_pass)' \
-        #                           'VALUES (%s, %s, %s)'
-        #                     cur.execute(sql, new_user)
-        #                     con.commit()
-        #
-        #             QMessageBox.information(self, '완료', '가입이 완료되었습니다.')
-        #             print('가입 완료')
-        #
-        #             # 회원가입 입력칸 초기화
-        #             self.name_lineEdit.setText('')
-        #             self.phone_lineEdit.setText('')
-        #             self.pass_lineEdit.setText('')
-        #             self.join_label.setText('')
-        #             self.acount_tabWidget.setCurrentIndex(0)
-        #
-        # else:
-        #     print('빈 칸 존재')
-        #     self.join_label.setText('모든 항목을 입력해주세요.')
-        #     return
-
-    def initialize_socket(self):
-        # ip = '127.0.0.1'
-        ip = '10.10.21.122' # 컴퓨터 ip
-        port = 8000
         self.client_socket = socket(AF_INET, SOCK_STREAM)
+        self.set_socket()
+        # 채팅 가능 여부 판별용 스위치
+        self.chat_able = 0
+        cThread = threading.Thread(target=self.receive_message, args=(self.client_socket,), daemon=True)
+        cThread.start()
+
+        self.login_process()
+        self.set_gui()
+
+    def set_socket(self):
+        ip = '10.10.21.121'  # 컴퓨터 ip
+        port = 9000
         self.client_socket.connect((ip, port))
 
-    def send_chat(self):
-        # senders_name = self.user_name_line_edit_1p.text() #ui사용자이름
-        senders_name = self.user[0] # 윗줄의 코드를 수정
-        # print(1)
-        data = self.signal_textEdit.toPlainText() #
-        # print(2)
-        self.receive_listWidget.addItem(f'{senders_name} : {data}') #ui
-        # print(3)
-        message = (f'{senders_name} : {data}').encode('utf-8')
-        # print(4)
-        self.client_socket.send(message)
-        # print(5)
-        self.signal_textEdit.clear()
-        # print(6)
+    def set_gui(self):
+        self.setFixedHeight(800)
+        self.setFixedWidth(600)
+        self.chat_client()
+        self.show()
+
+    def send_command(self, command, content, opponent_socket):
+        print(f'Server Message: {command}, {content} [{datetime.datetime.now()}]')
+        data = json.dumps([command, content])
+        opponent_socket.send(data.encode())
+
+    def login_process(self):
+        login_data = ['ElisaBluebell', '1234']
+        self.send_command('/login_teacher', login_data, self.client_socket)
 
     def receive_message(self, so):
         while True:
-            buf = so.recv(256)
-            if not buf: # 연결종료
+            buf = so.recv(8192)
+            if not buf:  # 연결종료
                 break
-            recv_data=buf.decode()
-            print(recv_data)
-            request = recv_data[0:3] # 식별자
-            data = recv_data[3:] # 데이터
 
-            if request != 'cht':
-                if request == 'log': # 로그인
-                    acount = json.loads(data)
-                    print(acount, '|', type(acount))
+            recv_data = buf.decode()  # 서버에서 응답한 데이터를 decode
+            print('recv_data: ', recv_data)
+            request = eval(recv_data)  # 서버의 응답에서 식별자 구분
+            command = request[0]
+            content = request[1]
+            print(f'command: {command}')
+            print(f'content: {content}')
 
-                    if acount: # 핸드폰 번호 조회 결과가 존재한다면
-                        name, id, pw = acount
+            if content == '':
+                pass
 
-                        if self.user_pass_lineEdit.text() == pw: # 비밀번호가 일치할 때
-                            print('phone / pass 일치, 로그인 확인')
-                            # self.user_name_label_2p.setText(self.user_name_line_edit_1p.text())
-                            self.user = acount
-                            self.stackedWidget.setCurrentIndex(1) # 페이지 이동
-                            print('페이지이동')
-                            self.user_name_label_2p.setText(name)
-                            print('이름출력')
-                            self.list_up_room()  # 채팅방 목록 조회
-                            print('채팅방 목록 조회')
+            elif command == '/login_user_list':
+                self.renew_user_list(content)
 
-                            # 로그인 경고, 비밀번호 입력란 초기화
-                            self.login_label.setText('')
-                            self.user_pass_lineEdit.setText('')
-                        else:
-                            print('phone / pass 불일치')
-                            self.login_label.setText('비밀번호를 확인해주세요.')
-                    else:
-                        print('조회된 계정 없음')
-                        self.login_label.setText('존재하지 않는 계정입니다.')
-                        return
+            # 현재 접속중인 유저명 저장, 학생 로그인의 경우 user_name 재설정 필요
+            elif command == '/login_success':
+                self.user_name = content
 
+            elif command == '/get_user_name':
+                self.renew_user_list(content)
 
-                elif request == 'acc': #회원가입
-                    print('회원가입')
-                elif request == 'cl0': # 채팅생성
-                    print('채팅방생성')
-                else: # 채팅
-                    print('채팅')
-                    self.receive_listWidget.addItem(f'{recv_data}')
-        so.close()
+            elif command == '/get_past_chat':
+                self.print_past_chat(content)
 
-    def send_data(self, data:dict, idf:str): # 데이터를 전송하는 함수
-        # DB에 넘겨줄 데이터를 포함하는 딕셔너리data와 식별자idf를 인자로 받음
-        '''
-        log : 로그인
-        acc : 회원가입
-        cl0 : 채팅방 생성
-        cl1 : 채팅방 조회
-        cht : 채팅
-        '''
+            elif command == '/new_chat':
+                self.receive_chat(content)
 
-        print('send_data 진입')
-        data = json.dumps(data) # 딕셔너리를 바이너리화 하는 json.dumps 메서드
-        print('1')
-        msg = idf + data # 식별자{딕셔너리내용}
-        print('2')
-        self.client_socket.send(msg.encode()) # 바이너리를 바이트로 바꿔서 전송
-        print('서버에 전송')
+            else:
+                pass
 
-        # 서버는 KEY 'role'의 VALUE에 따라 특정한 함수를 실행
-        # 서버로부터 응답을 받아 값으로 리턴해야 함
+    def chat_client(self):
+        self.user_select = QComboBox(self)
+        self.user_select.setGeometry(20, 20, 200, 20)
+        self.user_select.currentTextChanged.connect(self.request_past_chat_data)
 
-        # result = self.client_socket.recv(1024).decode()
-        # print('서버에서 받은 값: ', result)
-        # return result
+        self.chat_window = QListWidget(self)
+        self.chat_window.setGeometry(20, 120, 560, 560)
 
+        self.input_chat = QLineEdit(self)
+        self.input_chat.setGeometry(20, 700, 500, 20)
+        self.input_chat.returnPressed.connect(self.send_chat)
 
-    def create_chatroom(self):
-        text = self.chat_name_line_edit.text()
-        print(f'방제목: {text}')
-        if text == '':
-            return QMessageBox.information(self, '채팅 생성', '방 제목을 입력해주세요.')
+        self.send = QPushButton(self)
+        self.send.setGeometry(540, 700, 40, 20)
+        self.send.setText('전송')
+        self.send.clicked.connect(self.send_chat)
 
-        reply = QMessageBox.question(self, '채팅 생성', f"방장:'{self.user[0]}'\n'{text}' 채팅방을 생성하시겠습니까?",
-                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        self.send_command('/request_login_member_list', '', self.client_socket)
 
-        if reply == QMessageBox.Yes:
-            print(f'채팅방 [{text}] -- 생성 시도')
+    # 콤보박스 유저 목록 최신화
+    def renew_user_list(self, connectable_user_list):
+        # 유저 목록 초기화
+        self.user_select.clear()
 
-            # @DB의 room 테이블에 새로운 행을 insert하는 코드 : 서버로 이전
-            # with self.conn_commit() as con:
-            #     with con.cursor() as cur:
-            #         sql = 'INSERT INTO t8_db.room (room_name, room_master) VALUES (%s, %s)' # 채팅방 생성 쿼리
-            #         cur.execute(sql, (text, self.user[1]))
-            #         con.commit()
+        # 채팅 가능 유저가 있을 경우
+        if connectable_user_list:
+            # 채팅 가능 상태로 돌림
+            self.chat_able = 1
+            # 유저명을 콤보박스에 삽입
+            for connectable_user in connectable_user_list:
+                self.user_select.addItem(connectable_user)
 
-            # 방 생성에 필요한 데이터를 담은 room 딕셔너리
-            room = {'user': self.user[1], 'room_name': text}
-            result = self.send_data(room, 'cr0') # 서버에 room 딕셔너리를 전송, 결과 반환
+        else:
+            # 콤보박스에 상담 불가능을 표시하는 아이템 추가
+            self.user_select.addItem('지금은 상담이 불가능합니다.')
+            # 상담 불가 상태로 돌림
+            self.chat_able = 0
 
+    # 상담 가능 상태일 시 채팅 윈도우를 초기화하고 지난 채팅 불러오기
+    def request_past_chat_data(self):
+        self.chat_window.clear()
+        if self.chat_able == 1:
+            self.send_command('/request_past_chat_data',
+                              [self.user_name, self.user_select.currentText()], self.client_socket)
 
-            # print(result) # 결과 확인용
-            #
-            # QMessageBox.information(self, '완료', '채팅방이 생성되었습니다.')
-            # print('채팅방 생성')
+    # 지난 채팅 출력 기능
+    def print_past_chat(self, past_chat):
+        # 서버로부터 받아온 지난 채팅 리스트의 길이만큼 반복해서 출력
+        if past_chat:
+            for i in range(len(past_chat)):
+                self.chat_window.addItem(past_chat[i][0])
 
-            # self.list_up_room()  # 채팅 목록 조회
+        # 이후 스크롤 바닥으로
+        time.sleep(0.01)
+        self.chat_window.scrollToBottom()
 
-    # def list_up_room(self): # 채팅 목록 조회
-    #     # @이하 서버로 이전, rows에 값을 받아옴
-    #
-    #     # with self.conn_fetch() as cur:
-    #     #         sql = 'SELECT * FROM t8_db.room;'  # 채팅방 조회 쿼리
-    #     #         cur.execute(sql)
-    #     #         rows = cur.fetchall() # 방 목록
-    #
-    #     # 테이블 행 / 열 설정
-    #     self.chat_list_tableWidget.setColumnCount(2)
-    #     self.chat_list_tableWidget.setRowCount(len(rows))
-    #
-    #     col = 0
-    #     for row in rows:
-    #         self.chat_list_tableWidget.setItem(col, 0, QTableWidgetItem(str(row[0])))
-    #         self.chat_list_tableWidget.setItem(col, 1, QTableWidgetItem(str(row[1])))
-    #         col += 1
-    #
-    #     # 테이블 헤더 조정
-    #     self.chat_list_tableWidget.setColumnWidth(0, 20)
-    #     self.chat_list_tableWidget.horizontalHeader().setStretchLastSection(True)
-    #
-    #     # 테이블 셀 클릭 이벤트
-    #     self.chat_list_tableWidget.cellClicked.connect(self.select_chatroom)
-    #     # # 이제 더블클릭 했을 때 채팅방 새 창으로 열기 만들면 됨
-    #
-    #
-    # def select_chatroom(self, row):
-    #     r_num = self.chat_list_tableWidget.item(row, 0) # 방 번호
-    #     r_name = self.chat_list_tableWidget.item(row, 1) # 방 이름
-    #
-    #     room = (int(r_num.text()), r_name.text())
-    #     print(f'@{room[0]}번 : {room[1]}')
+    # 채팅 전송 기능
+    def send_chat(self):
+        if self.chat_able == 1:
+            chat_to_send = self.input_chat.text()
+            # 채팅창 초기화
+            self.input_chat.clear()
+
+            chat_data = [self.user_name, self.user_select.currentText(), chat_to_send]
+            self.send_command('/new_chat', chat_data, self.client_socket)
+
+    def receive_chat(self, content):
+        self.chat_window.addItem(content)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    myWindow = WindowClass()
-    myWindow.show()
-    cThread = threading.Thread(target=myWindow.receive_message, args=(myWindow.client_socket,))
-    cThread.start()
+    chat_client = ChatClient()
     app.exec_()

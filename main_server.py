@@ -1,10 +1,61 @@
 import server_tool as st
 
+login_student_index_socket = {}
+login_teacher_index_socket = {}
+
 
 class MainServer:
     def __init__(self):
         server_socket, socks = st.socket_initialize('10.10.21.121', 9000)
-        st.turn_server_on(self.command_processor, server_socket, socks)
+        self.turn_server_on(self.command_processor, server_socket, socks)
+
+    def turn_server_on(self, command_processor, server_socket, socks):
+        import datetime
+        import select
+        while True:
+            read_socket, dummy1, dummy2 = select.select(socks, [], [], 0)
+            for sock in read_socket:
+                if sock == server_socket:
+                    client_socket, addr, socks = st.add_client_to_socket_list(sock, socks)
+
+                else:
+                    try:
+                        data = sock.recv(8192).decode('utf-8')
+                        print(f'Received Message: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
+
+                        if data:
+                            try:
+                                message = eval(data)
+                                command_processor(message, sock)
+                                print(f'Received Message: {sock.getpeername()}: {message} [{datetime.datetime.now()}]')
+
+                            except:
+                                print('에러 발생')
+
+                        if not data:
+                            socks = self.connection_lost(sock, socks)
+                            continue
+
+                    except:
+                        print('에러 발생')
+
+    @staticmethod
+    def connection_lost(sock, socks):
+        print(f'Client {sock.getpeername()} Connection Lost')
+
+        for i in login_student_index_socket.keys():
+            if login_student_index_socket[i] == sock:
+                del login_student_index_socket[i]
+                break
+
+        for i in login_teacher_index_socket.keys():
+            if login_teacher_index_socket[i] == sock:
+                del login_teacher_index_socket[i]
+                break
+
+        sock.close()
+        socks.remove(sock)
+        return socks
 
     @staticmethod
     def get_useful_data(raw_data):
@@ -49,14 +100,27 @@ class MainServer:
         elif command == '/update_send':
             self.add_quiz(content, client_sock)
 
-        elif command == '/temp_recieve_chat':
+        elif command == '/new_chat':
             self.receive_chat_message(content)
+            self.send_chat_message(content)
 
-        elif command == '/temp_send_chat':
-            self.send_chat_message(content, client_sock)
+        elif command == '/save_learning_user':
+            self.insert_score(content, client_sock)
+
+        elif command == '/request_login_member_list':
+            self.send_login_member_list(client_sock)
+
+        elif command == '/load_learning_user':
+            self.load_learning_user(client_sock)
+
+        elif command == '/request_past_chat_data':
+            self.get_past_chat(content, client_sock)
 
         elif command[:5] == '/quiz':
             self.send_quiz_by_location(command, client_sock)
+
+        else:
+            pass
 
     def check_registrable(self, regist_info, client_sock):
         user_class, user_name, user_id, user_password = regist_info
@@ -92,6 +156,7 @@ class MainServer:
                 quiz_table = st.get_whole_data('quiz')
                 user_data = st.get_whole_data_where('user_account', 'user_id', login_id)
                 login_data = [user_data, quiz_table]
+                login_student_index_socket[user_data[0][0]] = client_sock
                 st.send_command('/login_success', login_data, client_sock)
 
     @staticmethod
@@ -105,7 +170,9 @@ class MainServer:
                 st.send_command('/login_password_fail', '', client_sock)
 
             else:
+                user_data = st.get_whole_data_where('user_account', 'user_id', login_id)
                 login_name = st.get_single_item('user_name', 'user_account', 'user_id', login_id)
+                login_teacher_index_socket[user_data[0][0]] = client_sock
                 st.send_command('/login_success', login_name, client_sock)
 
     @staticmethod
@@ -131,8 +198,23 @@ class MainServer:
 
     @staticmethod
     def insert_score(answer, client_sock):
-        sql = f'SELECT correct FROM quiz WHERE quiz_index={answer[0]};'
-        correct_answer = st.execute_db(sql)[0][0]
+        for i in range(1, len(answer)):
+            if answer[i][1] == 'O':
+                sql = f'''UPDATE score_board 
+                SET correct="{answer[i][2]}", 
+                solve_datetime="{answer[i][3]}" 
+                WHERE user_index={answer[0]} 
+                AND quiz_index={answer[i][0]};'''
+
+            else:
+                sql = f'''UPDATE score_board 
+                SET correct="{answer[i][1]}", 
+                solve_datetime="{answer[i][3]}" 
+                WHERE user_index={answer[0]} 
+                AND quiz_index={answer[i][0]};'''
+            st.execute_db(sql)
+
+        st.send_command('/score_board_updated', '', client_sock)
 
     @staticmethod
     def insert_qna_answer_to_database(answer, client_sock):
@@ -163,15 +245,20 @@ class MainServer:
             SELECT SUM(a.correct), 
             SUM(a.solve_datetime), 
             b.area_name 
-            FROM ss AS a 
+            FROM score_board AS a 
             INNER JOIN quiz AS b 
             ON a.quiz_index=b.quiz_index 
             WHERE a.user_index={i} 
             GROUP BY b.area_name
             ;'''
             user_score = st.execute_db(sql)
+            user_score = list(user_score)
+            for j in range(len(user_score)):
+                user_score[j] = list(user_score[j])
 
+            st.null_to_zero(user_score)
             user_data = [user_name, user_score]
+
             user_score_data.append(user_data)
 
         st.send_command('/student_score', user_score_data, client_sock)
@@ -236,11 +323,103 @@ class MainServer:
         location_quiz = st.execute_db(sql)
         st.send_command('/location_quiz', location_quiz, client_sock)
 
-    def receive_chat_message(self, content):
-        pass
+    def send_login_member_list(self, client_sock):
+        user_list = []
+        for i in login_teacher_index_socket.keys():
+            if login_teacher_index_socket[i] == client_sock:
+                for j in login_student_index_socket.keys():
+                    user_list.append(j)
+                self.get_user_name(user_list, client_sock)
 
-    def send_chat_message(self, content, client_sock):
-        pass
+        for i in login_student_index_socket.keys():
+            if login_student_index_socket[i] == client_sock:
+                for j in login_teacher_index_socket.keys():
+                    user_list.append(j)
+                self.get_user_name(user_list, client_sock)
+
+    @staticmethod
+    def get_user_name(user_index_list, client_sock):
+        user_name_list = []
+        for i in range(len(user_index_list)):
+            sql = f'SELECT user_name FROM user_account WHERE user_index={user_index_list[i]}'
+            user_name_list.append(st.execute_db(sql)[0][0])
+        st.send_command('/get_user_name', user_name_list, client_sock)
+
+    def load_learning_user(self, client_sock):
+        student = self.get_student_index(client_sock)
+
+        sql = f'SELECT a.quiz_index, b.area_name ' \
+              f'FROM score_board AS a ' \
+              f'INNER JOIN quiz AS b ' \
+              f'ON a.quiz_index=b.quiz_index ' \
+              f'WHERE a.solve_datetime is null ' \
+              f'AND a.user_index={student}'
+
+        learning_progress = st.execute_db(sql)
+        st.send_command('/learning_progress', learning_progress, client_sock)
+
+    @staticmethod
+    def get_student_index(client_sock):
+        for i in login_student_index_socket.keys():
+            if login_student_index_socket[i] == client_sock:
+                return i
+
+    @staticmethod
+    def get_past_chat(user_name_list, client_sock):
+        sql = f'''SELECT DISTINCT content FROM chat 
+        WHERE sender_index in 
+        (
+        SELECT user_index FROM user_account 
+        WHERE user_name="{user_name_list[0]}" 
+        OR user_name="{user_name_list[1]}"
+        ) 
+        AND receiver_index in 
+        (
+        SELECT user_index FROM user_account 
+        WHERE user_name="{user_name_list[1]}" 
+        OR user_name="{user_name_list[0]}"
+        )'''
+
+        past_chat = st.execute_db(sql)
+        st.send_command('/get_past_chat', past_chat, client_sock)
+
+    def receive_chat_message(self, content):
+        sender_name, receiver_name, text = content
+        sender_index = self.get_user_index_by_name(sender_name)[0][0]
+        receiver_index = self.get_user_index_by_name(receiver_name)[0][0]
+
+        sql = f'INSERT INTO chat VALUES({sender_index}, {receiver_index}, "{sender_name}: {text}")'
+        st.execute_db(sql)
+
+    def get_user_index_by_name(self, name):
+        sql = f'SELECT user_index FROM user_account WHERE user_name="{name}"'
+        return st.execute_db(sql)
+
+    def send_chat_message(self, content):
+        sender_name, receiver_name, text = content
+        sender_index = self.get_user_index_by_name(sender_name)[0][0]
+        receiver_index = self.get_user_index_by_name(receiver_name)[0][0]
+
+        sender_sock = self.get_client_socket_by_index(sender_index)
+        receiver_sock = self.get_client_socket_by_index(receiver_index)
+
+        chat_content = f'{sender_name}: {text}'
+
+        if sender_sock != 0:
+            st.send_command('/new_chat', chat_content, sender_sock)
+        if receiver_sock != 0:
+            st.send_command('/new_chat', chat_content, receiver_sock)
+
+    @staticmethod
+    def get_client_socket_by_index(user_index):
+        if user_index in login_student_index_socket.keys():
+            return login_student_index_socket[user_index]
+
+        elif user_index in login_teacher_index_socket.keys():
+            return login_teacher_index_socket[user_index]
+
+        else:
+            return 0
 
 
 if __name__ == "__main__":
