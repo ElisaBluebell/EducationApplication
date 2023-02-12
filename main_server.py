@@ -21,7 +21,6 @@ class MainServer:
                 else:
                     try:
                         data = sock.recv(8192).decode('utf-8')
-                        print(f'Received Data: {sock.getpeername()}: {data} [{datetime.datetime.now()}]')
 
                         if data:
                             try:
@@ -29,25 +28,15 @@ class MainServer:
                                 command_processor(message, sock)
                                 print(f'Received Message: {sock.getpeername()}: {message} [{datetime.datetime.now()}]')
 
-                            # except TypeError:
-                            #     print('TypeError Occurred')
-
-                            except NameError:
-                                print('NameError Occurred')
-
-                            # except:
-                            #     print('에러 발생')
+                            except:
+                                print('에러 발생')
 
                         if not data:
                             socks = self.connection_lost(sock, socks)
                             continue
 
-                    except ConnectionResetError:
-                        socks = self.connection_lost(sock, socks)
-                        continue
-
-                    # except:
-                    #     print('에러 발생')
+                    except:
+                        print('에러 발생')
 
     @staticmethod
     def connection_lost(sock, socks):
@@ -58,16 +47,10 @@ class MainServer:
                 del login_student_index_socket[i]
                 break
 
-        if login_student_index_socket:
-            print('login_student: ', login_student_index_socket)
-
         for i in login_teacher_index_socket.keys():
             if login_teacher_index_socket[i] == sock:
                 del login_teacher_index_socket[i]
                 break
-
-        if login_teacher_index_socket:
-            print('login_teacher: ', login_teacher_index_socket)
 
         sock.close()
         socks.remove(sock)
@@ -173,7 +156,6 @@ class MainServer:
                 user_data = st.get_whole_data_where('user_account', 'user_id', login_id)
                 login_data = [user_data, quiz_table]
                 login_student_index_socket[user_data[0][0]] = client_sock
-                print('login_student: ', login_student_index_socket)
                 st.send_command('/login_success', login_data, client_sock)
 
     @staticmethod
@@ -190,7 +172,6 @@ class MainServer:
                 user_data = st.get_whole_data_where('user_account', 'user_id', login_id)
                 login_name = st.get_single_item('user_name', 'user_account', 'user_id', login_id)
                 login_teacher_index_socket[user_data[0][0]] = client_sock
-                print('login_teacher: ', login_teacher_index_socket)
                 st.send_command('/login_success', login_name, client_sock)
 
     @staticmethod
@@ -401,18 +382,6 @@ class MainServer:
         past_chat = st.execute_db(sql)
         st.send_command('/get_past_chat', past_chat, client_sock)
 
-    #
-    # def get_login_student_list(self, client_sock):
-    #     sql = 'SELECT user_index FROM user_account WHERE class="학생"'
-    #     student_list = st.execute_db(sql)
-    #     print(student_list)
-    #
-    #
-    # def get_login_teacher_list(self, client_sock):
-    #     sql = 'SELECT user_index FROM user_account WHERE class="교사"'
-    #     teacher_list = st.execute_db(sql)
-    #     print(teacher_list)
-
     def receive_chat_message(self, content):
         sender_name, receiver_name, text = content
         sender_index = self.get_user_index_by_name(sender_name)[0][0]
@@ -430,7 +399,6 @@ class MainServer:
         sender_index = self.get_user_index_by_name(sender_name)[0][0]
         receiver_index = self.get_user_index_by_name(receiver_name)[0][0]
 
-        print('sender_index: ', sender_index)
         sender_sock = self.get_client_socket_by_index(sender_index)
         receiver_sock = self.get_client_socket_by_index(receiver_index)
 
@@ -443,15 +411,15 @@ class MainServer:
 
     @staticmethod
     def get_client_socket_by_index(user_index):
-        print('user_index: ', user_index)
-        print('student_socket: ', login_student_index_socket)
         if user_index in login_student_index_socket.keys():
             return login_student_index_socket[user_index]
 
         elif user_index in login_teacher_index_socket.keys():
             return login_teacher_index_socket[user_index]
+
         else:
             return 0
+
 
 if __name__ == "__main__":
     main_server = MainServer
