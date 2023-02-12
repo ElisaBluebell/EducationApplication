@@ -1,8 +1,9 @@
+import datetime
+import json
 import sys
 import threading
 import time
 
-import server_tool as st
 from socket import *
 
 from PyQt5.QtWidgets import QWidget, QApplication,QListWidget, QLineEdit, QComboBox, QPushButton
@@ -32,9 +33,14 @@ class ChatClient(QWidget):
         self.chat_client()
         self.show()
 
+    def send_command(self, command, content, opponent_socket):
+        print(f'Server Message: {command}, {content} [{datetime.datetime.now()}]')
+        data = json.dumps([command, content])
+        opponent_socket.send(data.encode())
+
     def login_process(self):
         login_data = ['ElisaBluebell', '1234']
-        st.send_command('/login_teacher', login_data, self.client_socket)
+        self.send_command('/login_teacher', login_data, self.client_socket)
 
     def receive_message(self, so):
         while True:
@@ -89,7 +95,7 @@ class ChatClient(QWidget):
         self.send.setText('전송')
         self.send.clicked.connect(self.send_chat)
 
-        st.send_command('/request_login_member_list', '', self.client_socket)
+        self.send_command('/request_login_member_list', '', self.client_socket)
 
     # 콤보박스 유저 목록 최신화
     def renew_user_list(self, content):
@@ -116,7 +122,7 @@ class ChatClient(QWidget):
         self.chat_window.clear()
         # if self.chat_able == 1:
         # content = [현재 접속중인 유저명, 콤보박스에서 선택한 유저명]
-        st.send_command('/request_past_chat_data', [self.user_name, self.user_select.currentText()], self.client_socket)
+        self.send_command('/request_past_chat_data', [self.user_name, self.user_select.currentText()], self.client_socket)
         # print('유저명: ', self.user_select.currentText())
 
     # 지난 채팅 출력 기능
@@ -138,7 +144,7 @@ class ChatClient(QWidget):
             self.input_chat.clear()
 
             chat_data = [self.user_name, self.user_select.currentText(), chat_to_send]
-            st.send_command('/new_chat', chat_data, self.client_socket)
+            self.send_command('/new_chat', chat_data, self.client_socket)
 
     def receive_chat(self, content):
         self.chat_window.addItem(content)
