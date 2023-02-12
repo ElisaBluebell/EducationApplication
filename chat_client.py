@@ -49,7 +49,7 @@ class ChatClient(QWidget):
                 break
 
             recv_data = buf.decode()  # 서버에서 응답한 데이터를 decode
-            print(recv_data)
+            print('recv_data: ', recv_data)
             request = eval(recv_data)  # 서버의 응답에서 식별자 구분
             command = request[0]
             content = request[1]

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="230211 ElisaBluebell">
+    <list default="true" id="5bfa4454-f0a4-403c-8c60-fb7f381b86f3" name="Changes" comment="230212 ElisaBluebell">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_client.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,13 +169,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1675646366145</updated>
-    </task>
-    <task id="LOCAL-00016" summary="230207 ElisaBluebell">
-      <created>1675748287777</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1675748287777</updated>
     </task>
     <task id="LOCAL-00017" summary="230207 ElisaBluebell">
       <created>1675755367556</created>
@@ -513,7 +506,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676180336449</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="230212 ElisaBluebell">
+      <created>1676182299897</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1676182299897</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -538,6 +538,7 @@
     <MESSAGE value="230209 ElisaBluebell" />
     <MESSAGE value="230210 ElisaBluebell" />
     <MESSAGE value="230211 ElisaBluebell" />
-    <option name="LAST_COMMIT_MESSAGE" value="230211 ElisaBluebell" />
+    <MESSAGE value="230212 ElisaBluebell" />
+    <option name="LAST_COMMIT_MESSAGE" value="230212 ElisaBluebell" />
   </component>
 </project>
